@@ -13,6 +13,7 @@
         <activity android:name=".ui.view.activity.registration.ClientSecondStepRegistrationActivity" />
         <activity android:name=".ui.view.activity.registration.TrainerSecondStepRegistrationActivity" />
         <activity android:name=".ui.view.activity.registration.FirstStepRegistrationActivity" />
+        <activity android:name=".ui.view.activity.registration.LoginActivity"/>
         <activity android:name=".ui.view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
