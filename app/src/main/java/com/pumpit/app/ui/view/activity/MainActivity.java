@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.pumpit.app.R;
+import com.pumpit.app.ui.view.activity.registration.FirstStepRegistrationActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), RegistrationActivity.class));
+                startActivity(new Intent(getApplicationContext(), FirstStepRegistrationActivity.class));
             }
         });
     }

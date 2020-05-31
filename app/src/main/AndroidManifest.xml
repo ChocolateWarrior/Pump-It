@@ -10,7 +10,9 @@
         android:roundIcon="@mipmap/pump_it_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.view.activity.RegistrationActivity"></activity>
+        <activity android:name=".ui.view.activity.registration.ClientSecondStepRegistrationActivity" />
+        <activity android:name=".ui.view.activity.registration.TrainerSecondStepRegistrationActivity" />
+        <activity android:name=".ui.view.activity.registration.FirstStepRegistrationActivity" />
         <activity android:name=".ui.view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
