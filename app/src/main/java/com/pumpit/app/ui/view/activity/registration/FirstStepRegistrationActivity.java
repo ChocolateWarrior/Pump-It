@@ -19,7 +19,6 @@ public class FirstStepRegistrationActivity extends AppCompatActivity implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first_step_registration);
 
         final ActivityFirstStepRegistrationBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_first_step_registration);
         final FirstStepRegistrationViewModel viewModel = new ViewModelProvider(this).get(FirstStepRegistrationViewModel.class);

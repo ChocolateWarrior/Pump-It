@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 
 import androidx.lifecycle.ViewModel;
 
@@ -57,14 +56,11 @@ public class FirstStepRegistrationViewModel extends ViewModel {
 
     public void onDateOfBirthListener(final View view) {
         new DatePickerDialog(view.getContext(),
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        calendar.set(Calendar.YEAR, year);
-                        calendar.set(Calendar.MONTH, month);
-                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                        updateLabel();
-                    }
+                (datePicker, year, month, dayOfMonth) -> {
+                    calendar.set(Calendar.YEAR, year);
+                    calendar.set(Calendar.MONTH, month);
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    updateLabel();
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),

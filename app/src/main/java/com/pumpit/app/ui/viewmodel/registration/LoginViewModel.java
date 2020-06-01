@@ -3,10 +3,11 @@ package com.pumpit.app.ui.viewmodel.registration;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.pumpit.app.data.remote.repository.UserRepository;
 import com.pumpit.app.ui.listener.registration.LoginListener;
 import com.pumpit.app.ui.view.activity.registration.FirstStepRegistrationActivity;
 
@@ -16,6 +17,7 @@ public class LoginViewModel extends ViewModel {
     private String username;
     private String password;
     private LoginListener listener;
+    private UserRepository userRepository;
 
     public void onLoginButtonClick(final View view) {
         listener.onStarted();
@@ -25,8 +27,8 @@ public class LoginViewModel extends ViewModel {
             return;
         }
 
-        logIn();
-        listener.onSuccess();
+        LiveData<String> loginResponse = userRepository.userLogin(username, password);
+        listener.onSuccess(loginResponse);
     }
 
     public void onRegisterButtonClick(final View view) {
@@ -50,19 +52,19 @@ public class LoginViewModel extends ViewModel {
         this.password = password;
     }
 
-    private void logIn() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     public LoginListener getListener() {
         return listener;
     }
 
     public void setListener(LoginListener listener) {
         this.listener = listener;
+    }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 }
