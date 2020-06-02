@@ -3,6 +3,7 @@ package com.pumpit.app.data.remote.repository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.gson.JsonObject;
 import com.pumpit.app.data.remote.PumpItApi;
 
 import java.io.IOException;
@@ -15,7 +16,10 @@ import retrofit2.Response;
 public class UserRepository {
     public LiveData<String> userLogin(String username, String password) {
         MutableLiveData<String> loginResponse = new MutableLiveData<>();
-        PumpItApi.invoke().userLogin(username, password)
+
+        JsonObject credentials = setupCredentials(username, password);
+
+        PumpItApi.invoke().userLogin(credentials)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -43,5 +47,12 @@ public class UserRepository {
                 });
 
         return loginResponse;
+    }
+
+    private JsonObject setupCredentials(String username, String password) {
+        JsonObject credentials = new JsonObject();
+        credentials.addProperty("username", username);
+        credentials.addProperty("password", password);
+        return credentials;
     }
 }
