@@ -41,8 +41,10 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
     @Override
     public void onSuccess(LiveData<String> loginResponse) {
-        ViewUtils.hideProgressBar(findViewById(R.id.login_progress_bar));
-        loginResponse.observe(this, s -> ViewUtils.showToast(this, s));
+        loginResponse.observe(this, s -> {
+            ViewUtils.hideProgressBar(findViewById(R.id.login_progress_bar));
+            ViewUtils.showToast(LoginActivity.this, s);
+        });
     }
 
     @Override
