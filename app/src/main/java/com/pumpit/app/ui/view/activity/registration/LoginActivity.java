@@ -8,7 +8,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.pumpit.app.R;
-import com.pumpit.app.data.remote.repository.UserRepository;
+import com.pumpit.app.data.remote.response.LoginResponse;
+import com.pumpit.app.data.repository.UserRepository;
 import com.pumpit.app.databinding.ActivityLoginBinding;
 import com.pumpit.app.ui.listener.registration.LoginListener;
 import com.pumpit.app.ui.viewmodel.registration.LoginViewModel;
@@ -40,10 +41,10 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     }
 
     @Override
-    public void onSuccess(LiveData<String> loginResponse) {
+    public void onSuccess(LiveData<LoginResponse> loginResponse) {
         loginResponse.observe(this, s -> {
             ViewUtils.hideProgressBar(findViewById(R.id.login_progress_bar));
-            ViewUtils.showToast(LoginActivity.this, s);
+            ViewUtils.showToast(LoginActivity.this, s.getUser().getLastName());
         });
     }
 

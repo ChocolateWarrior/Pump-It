@@ -11,7 +11,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/pump_it_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity android:name=".ui.view.activity.registration.ClientSecondStepRegistrationActivity" />
         <activity android:name=".ui.view.activity.registration.TrainerSecondStepRegistrationActivity" />
         <activity android:name=".ui.view.activity.registration.FirstStepRegistrationActivity" />
