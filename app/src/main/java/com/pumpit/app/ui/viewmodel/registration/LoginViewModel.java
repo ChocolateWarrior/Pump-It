@@ -5,15 +5,12 @@ import android.text.TextUtils;
 import android.view.View;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.pumpit.app.data.remote.response.LoginResponse;
 import com.pumpit.app.data.repository.UserRepository;
 import com.pumpit.app.ui.listener.registration.LoginListener;
 import com.pumpit.app.ui.view.activity.registration.FirstStepRegistrationActivity;
-
-import java.util.Objects;
 
 public class LoginViewModel extends ViewModel {
     private static final String INVALID_CREDENTIALS = "Username or password is invalid.";
