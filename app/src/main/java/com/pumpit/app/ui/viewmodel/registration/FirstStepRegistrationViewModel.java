@@ -88,7 +88,7 @@ public class FirstStepRegistrationViewModel extends ViewModel {
     }
 
     private void updateLabel() {
-        String dateFormat = "dd.MM.yyyy";
+        String dateFormat = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat, Locale.getDefault());
 
         listener.updateDateOfBirthLabel(simpleDateFormat.format(calendar.getTime()));
