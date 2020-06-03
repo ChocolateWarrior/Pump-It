@@ -5,16 +5,12 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.pumpit.app.R;
 import com.pumpit.app.data.local.PumpItDatabase;
-import com.pumpit.app.data.local.PumpItDatabase_Impl;
-import com.pumpit.app.data.local.entity.User;
 import com.pumpit.app.data.remote.PumpItApi;
 import com.pumpit.app.data.remote.interceptor.InternetConnectionInterceptor;
-import com.pumpit.app.data.remote.response.LoginResponse;
 import com.pumpit.app.data.repository.UserRepository;
 import com.pumpit.app.databinding.ActivityLoginBinding;
 import com.pumpit.app.ui.factory.LoginViewModelFactory;
@@ -65,9 +61,8 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     }
 
     @Override
-    public void onSuccess(final User userResponse) {
+    public void onSuccess() {
         ViewUtils.hideProgressBar(findViewById(R.id.login_progress_bar));
-        ViewUtils.showToast(LoginActivity.this, userResponse.getLastName());
     }
 
     @Override

@@ -7,11 +7,11 @@ import com.google.gson.JsonObject;
 import com.pumpit.app.data.remote.interceptor.InternetConnectionInterceptor;
 import com.pumpit.app.data.remote.response.ClientResponse;
 import com.pumpit.app.data.remote.response.LoginResponse;
+import com.pumpit.app.data.remote.response.TrainerResponse;
 
 import java.time.LocalDate;
 
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -34,7 +34,7 @@ public interface PumpItApi {
 
         return new Retrofit.Builder()
                 .client(httpClient)
-                .baseUrl("http://192.168.0.107:9000")
+                .baseUrl("http://10.0.2.2:9000")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
                 .create(PumpItApi.class);
@@ -50,9 +50,9 @@ public interface PumpItApi {
     Call<LoginResponse> signUpTrainer(@Body JsonObject data);
 
     @GET(value = "clients/{id}")
-    Call<ClientResponse> getClientById(@Path("id") int id);
+    Call<ClientResponse> getClientById(@Path("id") long id);
 
     @GET(value = "trainers/{id}")
-    Call<ClientResponse> getTrainerById(@Path("id") int id);
+    Call<TrainerResponse> getTrainerById(@Path("id") long id);
 
 }
