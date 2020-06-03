@@ -8,8 +8,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".ui.view.activity.MainActivity"
+        tools:openDrawer="start"
     >
-    <!--    tools:openDrawer="start"-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -337,7 +337,7 @@
                 android:elevation="4dp" />
 
             <FrameLayout
-                android:id="@+id/fragment_container"
+                android:id="@+id/menu_options_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>

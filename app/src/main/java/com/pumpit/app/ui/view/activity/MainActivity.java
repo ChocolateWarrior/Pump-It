@@ -7,6 +7,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pumpit.app.R;
+import com.pumpit.app.ui.view.activity.home.HomeActivity;
 import com.pumpit.app.ui.view.activity.registration.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {

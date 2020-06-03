@@ -14,7 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.view.activity.home.HomeActivity"></activity>
+        <activity
+            android:name=".ui.view.activity.listing.TrainingsActivity"
+            android:label="@string/title_activity_trainings"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ui.view.activity.listing.ExercisesActivity"
+            android:label="@string/title_activity_exercises"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.view.activity.listing.ClientsActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.view.activity.home.HomeActivity" />
         <activity android:name=".ui.view.activity.registration.ClientSecondStepRegistrationActivity" />
         <activity android:name=".ui.view.activity.registration.TrainerSecondStepRegistrationActivity" />
         <activity android:name=".ui.view.activity.registration.FirstStepRegistrationActivity" />
