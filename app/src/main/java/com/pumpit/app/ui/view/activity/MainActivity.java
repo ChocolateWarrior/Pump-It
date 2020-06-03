@@ -13,14 +13,22 @@ import com.pumpit.app.ui.view.activity.registration.LoginActivity;
 public class MainActivity extends AppCompatActivity {
 
     private Button test;
+    private Button home;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         test = findViewById(R.id.test);
-
         test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
+        });
+
+        home = findViewById(R.id.home_btn);
+        home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), HomeActivity.class));
