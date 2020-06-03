@@ -19,6 +19,8 @@ import com.pumpit.app.ui.view.activity.listing.ExercisesActivity;
 import com.pumpit.app.ui.view.activity.listing.TrainingsActivity;
 import com.pumpit.app.ui.view.activity.registration.LoginActivity;
 
+import java.util.Objects;
+
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout drawer;
@@ -29,6 +31,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
+
+        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_menu);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
