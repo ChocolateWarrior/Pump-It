@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.JsonObject;
 import com.pumpit.app.data.local.PumpItDatabase;
-//import com.pumpit.app.data.local.PumpItDatabase_Impl;
+import com.pumpit.app.data.local.entity.Sex;
 import com.pumpit.app.data.local.entity.User;
 import com.pumpit.app.data.remote.PumpItApi;
 import com.pumpit.app.data.remote.response.BasicResponse;
@@ -33,6 +33,21 @@ public class UserRepository {
         return loginResponse;
     }
 
+    public LiveData<BasicResponse<LoginResponse>> signUpClient(final String username,
+                                                               final String firstName,
+                                                               final String lastName,
+                                                               final String dateOfBirth,
+                                                               final String password,
+                                                               final Sex sex) {
+        MutableLiveData<BasicResponse<LoginResponse>> loginResponse = new MutableLiveData<>();
+        JsonObject request = setupCredentials(username, password);
+
+        pumpItApi.signUpClient(request)
+                .enqueue(new GenericCallback<>(loginResponse));
+
+        return loginResponse;
+    }
+
     public void saveUser(final User user) {
         pumpItDatabase.getUserDao().save(user);
     }
@@ -41,12 +56,26 @@ public class UserRepository {
         return pumpItDatabase.getUserDao().getCurrentUser();
     }
 
-//    public LiveData<User> registerClient()
-
     private JsonObject setupCredentials(String username, String password) {
         JsonObject credentials = new JsonObject();
         credentials.addProperty("username", username);
         credentials.addProperty("password", password);
         return credentials;
+    }
+
+    private JsonObject setupSignUpClientRequest(final String username,
+                                                final String firstName,
+                                                final String lastName,
+                                                final String dateOfBirth,
+                                                final String password,
+                                                final Sex sex) {
+        JsonObject request = new JsonObject();
+        request.addProperty("username", username);
+        request.addProperty("firstName", firstName);
+        request.addProperty("lastName", lastName);
+        request.addProperty("dateOfBirth", dateOfBirth);
+        request.addProperty("password", password);
+        request.addProperty("sex", sex.toString());
+        return request;
     }
 }

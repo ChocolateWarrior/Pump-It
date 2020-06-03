@@ -43,6 +43,9 @@ public interface PumpItApi {
     @POST(value = "login")
     Call<LoginResponse> userLogin(@Body JsonObject credentials);
 
+    @POST(value = "clients")
+    Call<LoginResponse> signUpClient(@Body JsonObject data);
+
     @GET(value = "clients/{id}")
     Call<ClientResponse> getClientById(@Path("id") int id);
 
