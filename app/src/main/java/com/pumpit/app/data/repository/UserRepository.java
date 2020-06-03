@@ -143,4 +143,16 @@ public class UserRepository {
     public void saveTrainer(Trainer trainer) {
         pumpItDatabase.getTrainerDao().save(trainer);
     }
+
+    public void removeUser() {
+        pumpItDatabase.getUserDao().removeCurrentUser();
+    }
+
+    public void removeClient() {
+        pumpItDatabase.getClientDao().removeCurrentUser();
+    }
+
+    public void removeTrainer() {
+        pumpItDatabase.getTrainerDao().removeCurrentUser();
+    }
 }

@@ -16,4 +16,7 @@ public interface ClientDao {
 
     @Query("SELECT * FROM clients WHERE uid = " + DatabaseConstants.CURRENT_USER_ID)
     LiveData<Client> getCurrentUser();
+
+    @Query("DELETE FROM clients WHERE uid = " + DatabaseConstants.CURRENT_USER_ID)
+    void removeCurrentUser();
 }

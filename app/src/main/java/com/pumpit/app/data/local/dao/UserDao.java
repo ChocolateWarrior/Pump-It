@@ -16,4 +16,7 @@ public interface UserDao {
 
     @Query("SELECT * FROM users WHERE uid = " + DatabaseConstants.CURRENT_USER_ID)
     LiveData<User> getCurrentUser();
+
+    @Query("DELETE FROM users WHERE uid = " + DatabaseConstants.CURRENT_USER_ID)
+    void removeCurrentUser();
 }
