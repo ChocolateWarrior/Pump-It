@@ -34,15 +34,15 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:layout_marginEnd="161dp"
             android:ems="10"
             android:hint="First Name"
             android:inputType="textPersonName"
+            android:text="@={viewmodel.firstName}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@={viewmodel.firstName}"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/email"
@@ -88,7 +88,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password"
             android:text="@={viewmodel.repeatPassword}"
-            android:onTextChanged="@{viewmodel::onRepeatPasswordTextChanged}"/>
+            android:afterTextChanged="@{viewmodel::onRepeatPasswordTextChanged}"/>
 
         <Switch
             android:id="@+id/trainerFlag"
@@ -131,6 +131,38 @@
             app:layout_constraintTop_toBottomOf="@+id/email"
             android:text="@={viewmodel.dateOfBirth}"
             android:onClick="@{viewmodel::onDateOfBirthListener}"/>
+
+        <RadioGroup
+            android:id="@+id/sex"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="269dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trainerFlag">
+
+            <RadioButton
+                android:id="@+id/sex_male"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->viewmodel.setSex(viewmodel.MALE)}"
+                android:layout_marginLeft="24dp"
+                android:layout_weight="1"
+                android:text="Male"
+                tools:text="Male" />
+
+            <RadioButton
+                android:id="@+id/sex_female"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->viewmodel.setSex(viewmodel.FEMALE)}"
+                android:layout_marginLeft="24dp"
+                android:layout_weight="1"
+                android:text="Female"
+                tools:text="Female" />
+        </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -16,7 +16,6 @@ public class ClientSecondStepRegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         final ActivityTrainerSecondStepRegistrationBinding binding = DataBindingUtil
                 .setContentView(this, R.layout.activity_trainer_second_step_registration);
         final TrainerSecondStepRegistrationViewModel viewModel = new ViewModelProvider(this)

@@ -1,13 +1,11 @@
 package com.pumpit.app.ui.listener.registration;
 
-import androidx.lifecycle.LiveData;
-
-import com.pumpit.app.data.remote.response.LoginResponse;
+import com.pumpit.app.data.local.entity.User;
 
 public interface LoginListener {
     void onStarted();
 
-    void onSuccess(LiveData<LoginResponse> loginResponse);
+    void onSuccess(final User userResponse);
 
     void onFailure(final String message);
 }

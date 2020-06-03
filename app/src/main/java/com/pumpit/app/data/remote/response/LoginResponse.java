@@ -8,7 +8,6 @@ import lombok.Data;
 @Data
 @Builder
 public class LoginResponse {
-    private String isSuccessful;
-    private String message;
+    private boolean successful;
     private User user;
 }

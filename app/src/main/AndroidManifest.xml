@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pumpit.app">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -13,10 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.view.activity.home.HomeActivity"></activity>
         <activity android:name=".ui.view.activity.registration.ClientSecondStepRegistrationActivity" />
         <activity android:name=".ui.view.activity.registration.TrainerSecondStepRegistrationActivity" />
         <activity android:name=".ui.view.activity.registration.FirstStepRegistrationActivity" />
-        <activity android:name=".ui.view.activity.registration.LoginActivity"/>
+        <activity android:name=".ui.view.activity.registration.LoginActivity" />
         <activity android:name=".ui.view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

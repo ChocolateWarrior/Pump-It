@@ -16,7 +16,7 @@ public abstract class PumpItDatabase extends RoomDatabase {
 
     private static PumpItDatabase instance;
 
-    abstract UserDao getUserDao();
+    public abstract UserDao getUserDao();
 
     public static synchronized PumpItDatabase getInstance(final Context context) {
         PumpItDatabase localInstance = instance;
@@ -33,6 +33,8 @@ public abstract class PumpItDatabase extends RoomDatabase {
 
     private static PumpItDatabase createInstance(final Context context) {
         return Room.databaseBuilder(context,
-                PumpItDatabase.class, "pump_it_db").build();
+                PumpItDatabase.class, "pump_it_db")
+                .allowMainThreadQueries()
+                .build();
     }
 }

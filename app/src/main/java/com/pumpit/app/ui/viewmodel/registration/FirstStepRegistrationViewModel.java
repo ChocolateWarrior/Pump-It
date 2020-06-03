@@ -2,13 +2,16 @@ package com.pumpit.app.ui.viewmodel.registration;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.RadioGroup;
 
 import androidx.lifecycle.ViewModel;
 
+import com.pumpit.app.data.local.entity.Sex;
 import com.pumpit.app.databinding.ActivityFirstStepRegistrationBinding;
 import com.pumpit.app.ui.listener.registration.FirstStepRegistrationListener;
 import com.pumpit.app.ui.view.activity.registration.ClientSecondStepRegistrationActivity;
@@ -26,6 +29,9 @@ public class FirstStepRegistrationViewModel extends ViewModel {
     private static final String PASSWORD_REQUIRED_MESSAGE = "Password is required!";
     private static final String DATE_OF_BIRTH_REQUIRED_MESSAGE = "Date of Birth is required!";
 
+    public static final Sex MALE = Sex.MALE;
+    public static final Sex FEMALE = Sex.FEMALE;
+
     private String  firstName;
     private String lastName;
     private String email;
@@ -33,6 +39,7 @@ public class FirstStepRegistrationViewModel extends ViewModel {
     private String repeatPassword;
     private String dateOfBirth;
     private Boolean trainerFlag;
+    private Sex sex;
     private Calendar calendar = Calendar.getInstance();
     private FirstStepRegistrationListener listener;
 
@@ -46,6 +53,7 @@ public class FirstStepRegistrationViewModel extends ViewModel {
                 fillSecondStepIntentExtras(trainerSecondStepRegistration);
                 view.getContext().startActivity(trainerSecondStepRegistration);
             } else {
+
                 Intent clientSecondStepRegistration = new Intent(view.getContext(),
                         ClientSecondStepRegistrationActivity.class);
                 fillSecondStepIntentExtras(clientSecondStepRegistration);
@@ -67,12 +75,16 @@ public class FirstStepRegistrationViewModel extends ViewModel {
                 calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
-    public void onRepeatPasswordTextChanged(CharSequence s, int start, int before, int count) {
+    public void onRepeatPasswordTextChanged(Editable s) {
         if (!password.equals(repeatPassword)) listener.passwordDoNotMatch();
     }
 
     public void onTrainerFlagChanged(final CompoundButton button, final boolean checked) {
         trainerFlag = checked;
+    }
+
+    public void setSex(final Sex sex) {
+        this.sex = sex;
     }
 
     private void updateLabel() {

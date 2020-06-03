@@ -7,6 +7,8 @@ import android.view.View;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.pumpit.app.data.local.entity.User;
+import com.pumpit.app.data.remote.response.BasicResponse;
 import com.pumpit.app.data.remote.response.LoginResponse;
 import com.pumpit.app.data.repository.UserRepository;
 import com.pumpit.app.ui.listener.registration.LoginListener;
@@ -20,6 +22,10 @@ public class LoginViewModel extends ViewModel {
     private LoginListener listener;
     private UserRepository userRepository;
 
+    public LoginViewModel(final UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     public void onLoginButtonClick(final View view) {
         listener.onStarted();
 
@@ -28,13 +34,26 @@ public class LoginViewModel extends ViewModel {
             return;
         }
 
-        LiveData<LoginResponse> loginResponse = userRepository.userLogin(username, password);
-        listener.onSuccess(loginResponse);
+        LiveData<BasicResponse<LoginResponse>> loginResponse = userRepository.userLogin(username, password);
+
+            loginResponse.observeForever(s -> {
+                if (s.isSuccessful()) {
+                    listener.onSuccess(s.getResponse().getUser());
+                    userRepository.saveUser(s.getResponse().getUser());
+                } else {
+                    listener.onFailure(s.getMessage());
+                }
+            });
+
     }
 
     public void onRegisterButtonClick(final View view) {
         view.getContext()
                 .startActivity(new Intent(view.getContext(), FirstStepRegistrationActivity.class));
+    }
+
+    public LiveData<User> getLoggedInUser() {
+        return userRepository.getUser();
     }
 
     public String getUsername() {
