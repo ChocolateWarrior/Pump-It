@@ -14,13 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionAndStatusBar"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.view.activity.listing.ExercisesActivity"></activity>
         <activity
             android:name=".ui.view.activity.listing.TrainingsActivity"
             android:label="@string/title_activity_trainings"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".ui.view.activity.listing.ExercisesActivity"
-            android:label="@string/title_activity_exercises"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.view.activity.listing.ClientsActivity"
