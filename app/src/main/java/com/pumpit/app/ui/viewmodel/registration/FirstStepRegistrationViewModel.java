@@ -9,17 +9,30 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.pumpit.app.data.local.entity.Authority;
 import com.pumpit.app.data.local.entity.Sex;
+import com.pumpit.app.data.local.entity.User;
+import com.pumpit.app.data.remote.response.BasicResponse;
+import com.pumpit.app.data.remote.response.LoginResponse;
+import com.pumpit.app.data.repository.UserRepository;
 import com.pumpit.app.databinding.ActivityFirstStepRegistrationBinding;
 import com.pumpit.app.ui.listener.registration.FirstStepRegistrationListener;
 import com.pumpit.app.ui.view.activity.registration.ClientSecondStepRegistrationActivity;
 import com.pumpit.app.ui.view.activity.registration.TrainerSecondStepRegistrationActivity;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 public class FirstStepRegistrationViewModel extends ViewModel {
     private static final String FIRST_NAME_REQUIRED_MESSAGE = "First name is required!";
@@ -42,6 +55,11 @@ public class FirstStepRegistrationViewModel extends ViewModel {
     private Sex sex;
     private Calendar calendar = Calendar.getInstance();
     private FirstStepRegistrationListener listener;
+    private UserRepository userRepository;
+
+    public FirstStepRegistrationViewModel(final UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public void onContinueRegistrationButtonClick(final View view) {
         clearErrorMessages(view);
@@ -53,13 +71,13 @@ public class FirstStepRegistrationViewModel extends ViewModel {
                 fillSecondStepIntentExtras(trainerSecondStepRegistration);
                 view.getContext().startActivity(trainerSecondStepRegistration);
             } else {
-
-                Intent clientSecondStepRegistration = new Intent(view.getContext(),
-                        ClientSecondStepRegistrationActivity.class);
-                fillSecondStepIntentExtras(clientSecondStepRegistration);
-                view.getContext().startActivity(clientSecondStepRegistration);
+                signUpClient(view);
             }
         }
+    }
+
+    public LiveData<User> getLoggedInUser() {
+        return userRepository.getUser();
     }
 
     public void onDateOfBirthListener(final View view) {
@@ -145,6 +163,33 @@ public class FirstStepRegistrationViewModel extends ViewModel {
         secondStepRegistrationIntent.putExtra("email", email);
         secondStepRegistrationIntent.putExtra("password", password);
         secondStepRegistrationIntent.putExtra("dateOfBirth", dateOfBirth);
+    }
+
+    private void signUpClient(final View view) {
+        LiveData<BasicResponse<LoginResponse>> loginResponse = userRepository.signUpClient(email,
+                firstName,
+                lastName,
+                dateOfBirth,
+                password,
+                sex);
+
+        loginResponse.observeForever(s -> {
+            if (s.isSuccessful()) {
+                populateUser(s.getResponse().getUser());
+                s.getResponse().getUser().setAuthorities(Collections.singleton(Authority.CLIENT));
+                userRepository.saveUser(s.getResponse().getUser());
+            } else {
+                listener.onFailure(s.getMessage());
+            }
+        });
+    }
+
+    private void populateUser(final User user) {
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setUsername(email);
+        user.setDateOfBirth(LocalDateTime.ofInstant(calendar.toInstant(), ZoneId.systemDefault()).toLocalDate());
+        user.setSex(sex);
     }
 
     public String getFirstName() {
