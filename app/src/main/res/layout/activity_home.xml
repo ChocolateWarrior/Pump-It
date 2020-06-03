@@ -1,240 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.view.activity.MainActivity">
-    <!--        tools:openDrawer="start"-->
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <variable name="viewmodel" type="com.pumpit.app.ui.viewmodel.home.HomeViewModel"/>
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/lightGrey">
+        android:fitsSystemWindows="true"
+        tools:context=".ui.view.activity.MainActivity"
+        >
+        <!--        tools:openDrawer="start"-->
 
-        <ImageView
-            android:id="@+id/img_user_avatar"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="120dp"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="user_avatar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_avatar" />
-        <!--            app:layout_constraintTop_toBottomOf="@+id/linlay_bar_top"-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/lightGrey">
 
-        <Button
-            android:id="@+id/btn_edit_profile"
-            android:layout_width="180dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/mybutton"
-            android:fontFamily="sans-serif-light"
-            android:text="Edit Profile"
-            android:textColor="@color/appYellow"
-            app:layout_constraintBottom_toBottomOf="@+id/linlay_bar_bot"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linlay_info_bar"
-            app:layout_constraintVertical_bias="0.1" />
+            <ImageView
+                android:id="@+id/img_user_avatar"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="120dp"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="user_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_avatar" />
+            <!--            app:layout_constraintTop_toBottomOf="@+id/linlay_bar_top"-->
 
-<!--        <LinearLayout-->
-<!--            android:id="@+id/linlay_bar_top"-->
-<!--            android:layout_width="420dp"-->
-<!--            android:layout_height="70dp"-->
-<!--            android:layout_marginStart="8dp"-->
-<!--            android:layout_marginEnd="8dp"-->
-<!--            android:background="@color/barBlack"-->
-<!--            android:orientation="horizontal"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.5"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent">-->
+            <Button
+                android:id="@+id/btn_edit_profile"
+                android:layout_width="180dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/mybutton"
+                android:fontFamily="sans-serif-light"
+                android:text="Edit Profile"
+                android:textColor="@color/appYellow"
+                app:layout_constraintBottom_toBottomOf="@+id/linlay_bar_bot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linlay_info_bar"
+                app:layout_constraintVertical_bias="0.1" />
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/subbar_top_left"-->
-<!--                android:layout_width="100dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="horizontal">-->
+            <!--        <LinearLayout-->
+            <!--            android:id="@+id/linlay_bar_top"-->
+            <!--            android:layout_width="420dp"-->
+            <!--            android:layout_height="70dp"-->
+            <!--            android:layout_marginStart="8dp"-->
+            <!--            android:layout_marginEnd="8dp"-->
+            <!--            android:background="@color/barBlack"-->
+            <!--            android:orientation="horizontal"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintHorizontal_bias="0.5"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toTopOf="parent">-->
 
-<!--                <ImageButton-->
-<!--                    android:id="@+id/img_btn_menu"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:adjustViewBounds="true"-->
-<!--                    android:background="@android:color/transparent"-->
-<!--                    android:padding="20dp"-->
-<!--                    android:scaleType="fitCenter"-->
-<!--                    android:tint="@color/appYellow"-->
-<!--                    app:srcCompat="@drawable/ic_menu" />-->
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/subbar_top_left"-->
+            <!--                android:layout_width="100dp"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:orientation="horizontal">-->
 
-<!--            </LinearLayout>-->
+            <!--                <ImageButton-->
+            <!--                    android:id="@+id/img_btn_menu"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:adjustViewBounds="true"-->
+            <!--                    android:background="@android:color/transparent"-->
+            <!--                    android:padding="20dp"-->
+            <!--                    android:scaleType="fitCenter"-->
+            <!--                    android:tint="@color/appYellow"-->
+            <!--                    app:srcCompat="@drawable/ic_menu" />-->
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/subbar_top_center"-->
-<!--                android:layout_width="220dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="horizontal">-->
+            <!--            </LinearLayout>-->
 
-<!--                <ImageView-->
-<!--                    android:id="@+id/img_logo"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:adjustViewBounds="true"-->
-<!--                    android:background="@android:color/transparent"-->
-<!--                    android:padding="2dp"-->
-<!--                    android:scaleType="fitCenter"-->
-<!--                    app:srcCompat="@drawable/ic_logo" />-->
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/subbar_top_center"-->
+            <!--                android:layout_width="220dp"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:orientation="horizontal">-->
 
-<!--            </LinearLayout>-->
+            <!--                <ImageView-->
+            <!--                    android:id="@+id/img_logo"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:adjustViewBounds="true"-->
+            <!--                    android:background="@android:color/transparent"-->
+            <!--                    android:padding="2dp"-->
+            <!--                    android:scaleType="fitCenter"-->
+            <!--                    app:srcCompat="@drawable/ic_logo" />-->
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/subbar_top_right"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="horizontal">-->
+            <!--            </LinearLayout>-->
 
-<!--                <ImageButton-->
-<!--                    android:id="@+id/img_btn_search"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:adjustViewBounds="true"-->
-<!--                    android:background="@android:color/transparent"-->
-<!--                    android:padding="20dp"-->
-<!--                    android:scaleType="fitCenter"-->
-<!--                    android:tint="@color/appYellow"-->
-<!--                    app:srcCompat="@drawable/ic_search" />-->
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/subbar_top_right"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:orientation="horizontal">-->
 
-<!--            </LinearLayout>-->
+            <!--                <ImageButton-->
+            <!--                    android:id="@+id/img_btn_search"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:adjustViewBounds="true"-->
+            <!--                    android:background="@android:color/transparent"-->
+            <!--                    android:padding="20dp"-->
+            <!--                    android:scaleType="fitCenter"-->
+            <!--                    android:tint="@color/appYellow"-->
+            <!--                    app:srcCompat="@drawable/ic_search" />-->
 
-<!--        </LinearLayout>-->
+            <!--            </LinearLayout>-->
 
-        <LinearLayout
-            android:id="@+id/linlay_info_bar"
-            android:layout_width="420dp"
-            android:layout_height="110dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_user_avatar"
-            app:layout_constraintVertical_bias="0.0">
+            <!--        </LinearLayout>-->
 
             <LinearLayout
-                android:id="@+id/linlay_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:id="@+id/linlay_info_bar"
+                android:layout_width="420dp"
+                android:layout_height="110dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_user_avatar"
+                app:layout_constraintVertical_bias="0.0">
 
-                <TextView
-                    android:id="@+id/text_name"
+                <LinearLayout
+                    android:id="@+id/linlay_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center"
-                    android:text="Baba Sraka"
-                    android:textColor="@color/barBlack"
-                    android:textSize="28sp" />
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/text_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="center"
+                        android:text="@={viewmodel.name}"
+                        android:textColor="@color/barBlack"
+                        android:textSize="28sp" />
 
-            <LinearLayout
-                android:id="@+id/linlay_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/text_desc"
+                <LinearLayout
+                    android:id="@+id/linlay_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center_horizontal"
-                    android:text="Coach, Bodybuilder, Entrepreneur"
-                    android:textColor="@color/barBlack"
-                    android:textSize="16sp" />
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/text_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="center_horizontal"
+                        android:text="@={viewmodel.description}"
+                        android:textColor="@color/barBlack"
+                        android:textSize="16sp" />
 
-            <LinearLayout
-                android:id="@+id/linlay_place"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:orientation="vertical">
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/text_place"
+                <LinearLayout
+                    android:id="@+id/linlay_place"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center_horizontal"
-                    android:text="SportLife UA"
-                    android:textColor="@color/barBlack"
-                    android:textSize="20sp" />
+                    android:layout_height="46dp"
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/text_optional_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="center_horizontal"
+                        android:text="@={viewmodel.optionalInfo}"
+                        android:textColor="@color/barBlack"
+                        android:textSize="20sp" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linlay_bar_bot"
-            android:layout_width="420dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/barBlack"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <LinearLayout
-                android:id="@+id/linlay_bot_left"
-                android:layout_width="140dp"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/btn_home"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
-                    android:padding="20dp"
-                    android:scaleType="fitCenter"
-                    android:tint="@color/appYellow"
-                    app:srcCompat="@drawable/ic_home" />
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linlay_bot_center"
-                android:layout_width="140dp"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:id="@+id/linlay_bar_bot"
+                android:layout_width="420dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/barBlack"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/linlay_bot_left"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/btn_home"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:background="@android:color/transparent"
+                        android:padding="20dp"
+                        android:scaleType="fitCenter"
+                        android:tint="@color/appYellow"
+                        app:srcCompat="@drawable/ic_home" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linlay_bot_center"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/btn_calendar"
@@ -248,121 +256,124 @@
                     android:tint="@color/appYellow"
                     app:srcCompat="@drawable/ic_calendar" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linlay_bot_right"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/btn_social"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:background="@android:color/transparent"
+                        android:padding="20dp"
+                        android:scaleType="fitCenter"
+                        android:tint="@color/appYellow"
+                        app:srcCompat="@drawable/ic_socials" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_add"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="32dp"
+                android:backgroundTint="@color/appYellow"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toTopOf="@+id/linlay_bar_bot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.976"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_edit_profile"
+                app:srcCompat="@android:drawable/ic_menu_add" />
+
+            <TextView
+                android:id="@+id/text_side_num"
+                android:text="@={viewmodel.sideNumber}"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:textAlignment="center"
+                android:textColor="@color/barBlack"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/img_user_avatar"
+                app:layout_constraintTop_toTopOf="@+id/img_user_avatar" />
+
+            <TextView
+                android:id="@+id/text_side_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_side_num"
+                android:layout_marginEnd="40dp"
+                android:fontFamily="sans-serif-light"
+                android:text="@={viewmodel.sideTitle}"
+                android:textColor="@color/barBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_side_num" />
+
+
+            <!--    SIDE-MENU SNIPPET   -->
             <LinearLayout
-                android:id="@+id/linlay_bot_right"
+                android:id="@+id/linlay_sidemenu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/btn_social"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
-                    android:padding="20dp"
-                    android:scaleType="fitCenter"
-                    android:tint="@color/appYellow"
-                    app:srcCompat="@drawable/ic_socials" />
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="69dp"
+                    android:background="@drawable/ic_actionbar_bg"
+                    android:fitsSystemWindows="true"
+                    android:theme="@style/AppTheme.AppBarOverlay">
 
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="500dp"
+                        android:layout_weight="1"
+                        android:elevation="4dp"
+                        app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+                <FrameLayout
+                    android:id="@+id/menu_options_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_add"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="32dp"
-            android:backgroundTint="@color/appYellow"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintBottom_toTopOf="@+id/linlay_bar_bot"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.976"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_edit_profile"
-            app:srcCompat="@android:drawable/ic_menu_add" />
-
-        <TextView
-            android:id="@+id/text_trainee_num"
-            android:text="438"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="8dp"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:fontFamily="sans-serif-light"
-            android:textAlignment="center"
-            android:textColor="@color/barBlack"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_user_avatar"
-            app:layout_constraintTop_toTopOf="@+id/img_user_avatar" />
-
-        <TextView
-            android:id="@+id/text_trainees"
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text_trainee_num"
-            android:layout_marginEnd="40dp"
-            android:fontFamily="sans-serif-light"
-            android:text="Trainees"
-            android:textColor="@color/barBlack"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_trainee_num" />
-
-
-        <!--    SIDE-MENU SNIPPET   -->
-        <LinearLayout
-            android:id="@+id/linlay_sidemenu"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appbar"
-                android:layout_width="match_parent"
-                android:layout_height="69dp"
-                android:background="@drawable/ic_actionbar_bg"
-                android:fitsSystemWindows="true"
-                android:theme="@style/AppTheme.AppBarOverlay">
-
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:layout_weight="1"
-                    android:elevation="4dp"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-            </com.google.android.material.appbar.AppBarLayout>
-
-            <FrameLayout
-                android:id="@+id/menu_options_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/drawer_menu" />
+            android:layout_gravity="start"
+            app:headerLayout="@layout/nav_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/drawer_menu" />
 
 
-</androidx.drawerlayout.widget.DrawerLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</layout>
+
