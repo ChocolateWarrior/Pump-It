@@ -12,7 +12,13 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.pumpit.app.R;
+import com.pumpit.app.data.local.PumpItDatabase;
+import com.pumpit.app.data.remote.PumpItApi;
+import com.pumpit.app.data.remote.interceptor.InternetConnectionInterceptor;
+import com.pumpit.app.data.repository.UserRepository;
 import com.pumpit.app.databinding.ActivityFirstStepRegistrationBinding;
+import com.pumpit.app.ui.factory.FirstStepRegistrationViewModelFactory;
+import com.pumpit.app.ui.factory.LoginViewModelFactory;
 import com.pumpit.app.ui.listener.registration.FirstStepRegistrationListener;
 import com.pumpit.app.ui.view.activity.home.HomeActivity;
 import com.pumpit.app.ui.viewmodel.registration.FirstStepRegistrationViewModel;
@@ -28,10 +34,18 @@ public class FirstStepRegistrationActivity extends AppCompatActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        final InternetConnectionInterceptor interceptor = new InternetConnectionInterceptor(this);
+        final PumpItApi api = PumpItApi.invoke(interceptor);
+        final PumpItDatabase db = PumpItDatabase.getInstance(this);
+        final UserRepository repository = new UserRepository(api, db);
+        final FirstStepRegistrationViewModelFactory factory = new FirstStepRegistrationViewModelFactory(repository);
+
         final ActivityFirstStepRegistrationBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_first_step_registration);
-        final FirstStepRegistrationViewModel viewModel = new ViewModelProvider(this).get(FirstStepRegistrationViewModel.class);
+        final FirstStepRegistrationViewModel viewModel = new ViewModelProvider(this, factory).get(FirstStepRegistrationViewModel.class);
+
 
         binding.setViewmodel(viewModel);
+        viewModel.setBinding(binding);
 
         viewModel.getLoggedInUser().observe(this, user -> {
             if (Objects.nonNull(user)) {
