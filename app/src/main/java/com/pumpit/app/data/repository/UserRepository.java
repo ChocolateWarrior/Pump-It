@@ -40,7 +40,13 @@ public class UserRepository {
                                                                final String password,
                                                                final Sex sex) {
         MutableLiveData<BasicResponse<LoginResponse>> loginResponse = new MutableLiveData<>();
-        JsonObject request = setupCredentials(username, password);
+
+        JsonObject request = setupSignUpClientRequest(username,
+                firstName,
+                lastName,
+                dateOfBirth,
+                password,
+                sex);
 
         pumpItApi.signUpClient(request)
                 .enqueue(new GenericCallback<>(loginResponse));

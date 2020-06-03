@@ -47,7 +47,7 @@ public class FirstStepRegistrationViewModel extends ViewModel {
     private String password;
     private String repeatPassword;
     private String dateOfBirth;
-    private Boolean trainerFlag;
+    private boolean trainerFlag;
     private Sex sex;
     private Calendar calendar = Calendar.getInstance();
     private FirstStepRegistrationListener listener;
