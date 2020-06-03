@@ -7,9 +7,14 @@ import android.view.View;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.pumpit.app.data.local.entity.Authority;
+import com.pumpit.app.data.local.entity.Client;
+import com.pumpit.app.data.local.entity.Trainer;
 import com.pumpit.app.data.local.entity.User;
 import com.pumpit.app.data.remote.response.BasicResponse;
+import com.pumpit.app.data.remote.response.ClientResponse;
 import com.pumpit.app.data.remote.response.LoginResponse;
+import com.pumpit.app.data.remote.response.TrainerResponse;
 import com.pumpit.app.data.repository.UserRepository;
 import com.pumpit.app.ui.listener.registration.LoginListener;
 import com.pumpit.app.ui.view.activity.registration.FirstStepRegistrationActivity;
@@ -36,15 +41,70 @@ public class LoginViewModel extends ViewModel {
 
         LiveData<BasicResponse<LoginResponse>> loginResponse = userRepository.userLogin(username, password);
 
-            loginResponse.observeForever(s -> {
-                if (s.isSuccessful()) {
-                    listener.onSuccess(s.getResponse().getUser());
-                    userRepository.saveUser(s.getResponse().getUser());
-                } else {
-                    listener.onFailure(s.getMessage());
+        loginResponse.observeForever(s -> {
+            if (s.isSuccessful()) {
+                User user = s.getResponse().getUser();
+                if (user.getAuthorities().contains(Authority.CLIENT)) {
+                    userRepository.getClientById(user.getId()).observeForever(clRes -> {
+                        if (clRes.isSuccessful()) {
+                            ClientResponse response = clRes.getResponse();
+                            Client client = convertResponseToClient(response);
+                            userRepository.saveClient(client);
+                            listener.onSuccess();
+                        } else {
+                            listener.onFailure(clRes.getMessage());
+                        }
+                    });
+                } else if (user.getAuthorities().contains(Authority.TRAINER)) {
+                    userRepository.getTrainerById(user.getId()).observeForever(trRes -> {
+                        if (trRes.isSuccessful()) {
+                            TrainerResponse response = trRes.getResponse();
+                            Trainer trainer = convertResponseToTrainer(response);
+                            userRepository.saveTrainer(trainer);
+                            listener.onSuccess();
+                        } else {
+                            listener.onFailure(trRes.getMessage());
+                        }
+                    });
                 }
-            });
+                userRepository.saveUser(user);
+            } else {
+                listener.onFailure(s.getMessage());
+            }
+        });
 
+    }
+
+    private Trainer convertResponseToTrainer(TrainerResponse response) {
+        return new Trainer(
+                response.getId(),
+                response.getFirstName(),
+                response.getLastName(),
+                response.getUsername(),
+                response.getProfilePicturePath(),
+                response.getDateOfBirth(),
+                response.getSex(),
+                response.getAuthorities(),
+                response.getCompany(),
+                response.getClientCount()
+        );
+    }
+
+    private Client convertResponseToClient(ClientResponse response) {
+        return new Client(
+                response.getId(),
+                response.getFirstName(),
+                response.getLastName(),
+                response.getUsername(),
+                response.getProfilePicturePath(),
+                response.getDateOfBirth(),
+                response.getSex(),
+                response.getAuthorities(),
+                response.getWeight(),
+                response.getHeight(),
+                response.getTrainerFirstName(),
+                response.getTrainerLastName()
+        );
     }
 
     public void onRegisterButtonClick(final View view) {

@@ -5,12 +5,16 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.JsonObject;
 import com.pumpit.app.data.local.PumpItDatabase;
+import com.pumpit.app.data.local.entity.Client;
 import com.pumpit.app.data.local.entity.Sex;
+import com.pumpit.app.data.local.entity.Trainer;
 import com.pumpit.app.data.local.entity.User;
 import com.pumpit.app.data.remote.PumpItApi;
 import com.pumpit.app.data.remote.response.BasicResponse;
+import com.pumpit.app.data.remote.response.ClientResponse;
 import com.pumpit.app.data.remote.response.GenericCallback;
 import com.pumpit.app.data.remote.response.LoginResponse;
+import com.pumpit.app.data.remote.response.TrainerResponse;
 
 public class UserRepository {
 
@@ -79,6 +83,24 @@ public class UserRepository {
         return loginResponse;
     }
 
+    public LiveData<BasicResponse<TrainerResponse>> getTrainerById(long id) {
+        MutableLiveData<BasicResponse<TrainerResponse>> basicTrainerResponse = new MutableLiveData<>();
+
+        pumpItApi.getTrainerById(id)
+                .enqueue(new GenericCallback<>(basicTrainerResponse));
+
+        return basicTrainerResponse;
+    }
+
+    public LiveData<BasicResponse<ClientResponse>> getClientById(long id) {
+        MutableLiveData<BasicResponse<ClientResponse>> basicClientResponse = new MutableLiveData<>();
+
+        pumpItApi.getClientById(id)
+                .enqueue(new GenericCallback<>(basicClientResponse));
+
+        return basicClientResponse;
+    }
+
     public void saveUser(final User user) {
         pumpItDatabase.getUserDao().save(user);
     }
@@ -112,5 +134,13 @@ public class UserRepository {
 
     private void setupSignUpTrainerRequest(final JsonObject request, final String company) {
         request.addProperty("password", company);
+    }
+
+    public void saveClient(Client client) {
+        pumpItDatabase.getClientDao().save(client);
+    }
+
+    public void saveTrainer(Trainer trainer) {
+        pumpItDatabase.getTrainerDao().save(trainer);
     }
 }

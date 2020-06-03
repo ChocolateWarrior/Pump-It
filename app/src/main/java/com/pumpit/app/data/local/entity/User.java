@@ -10,16 +10,10 @@ import com.pumpit.app.data.local.converter.LocalDateConverter;
 import com.pumpit.app.data.local.converter.SexConverter;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-
-@Builder
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity(tableName = "users")
 public class User {
 
     @PrimaryKey(autoGenerate = false)
@@ -37,6 +31,20 @@ public class User {
     private Sex sex;
     @TypeConverters({AuthoritiesConverter.class})
     private Set<Authority> authorities;
+
+    public User(long id, String firstName, String lastName, String username, String profilePicturePath, LocalDate dateOfBirth, Sex sex, Set<Authority> authorities) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.profilePicturePath = profilePicturePath;
+        this.dateOfBirth = dateOfBirth;
+        this.sex = sex;
+        this.authorities = authorities;
+    }
+
+    public User() {
+    }
 
     public long getUid() {
         return uid;
@@ -108,5 +116,26 @@ public class User {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return uid == user.uid &&
+                id == user.id &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(profilePicturePath, user.profilePicturePath) &&
+                Objects.equals(dateOfBirth, user.dateOfBirth) &&
+                sex == user.sex &&
+                Objects.equals(authorities, user.authorities);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, id, firstName, lastName, username, profilePicturePath, dateOfBirth, sex, authorities);
     }
 }

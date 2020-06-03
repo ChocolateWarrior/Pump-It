@@ -7,13 +7,13 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.pumpit.app.data.local.DatabaseConstants;
-import com.pumpit.app.data.local.entity.User;
+import com.pumpit.app.data.local.entity.Client;
 
 @Dao
-public interface UserDao {
+public interface ClientDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long save(final User user);
+    long save(final Client client);
 
-    @Query("SELECT * FROM users WHERE uid = " + DatabaseConstants.CURRENT_USER_ID)
-    LiveData<User> getCurrentUser();
+    @Query("SELECT * FROM clients WHERE uid = " + DatabaseConstants.CURRENT_USER_ID)
+    LiveData<Client> getCurrentUser();
 }
