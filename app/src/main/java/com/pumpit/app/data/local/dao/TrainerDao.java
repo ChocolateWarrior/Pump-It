@@ -15,7 +15,7 @@ public interface TrainerDao {
     long save(final Trainer trainer);
 
     @Query("SELECT * FROM trainers WHERE uid = " + DatabaseConstants.CURRENT_USER_ID)
-    LiveData<Trainer> getCurrentUser();
+    LiveData<Trainer> getCurrentTrainer();
 
     @Query("DELETE FROM trainers WHERE uid = " + DatabaseConstants.CURRENT_USER_ID)
     void removeCurrentUser();

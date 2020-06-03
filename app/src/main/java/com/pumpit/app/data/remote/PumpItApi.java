@@ -34,7 +34,7 @@ public interface PumpItApi {
 
         return new Retrofit.Builder()
                 .client(httpClient)
-                .baseUrl("http://10.0.2.2:9000")
+                .baseUrl("http://192.168.0.107:9000")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
                 .create(PumpItApi.class);

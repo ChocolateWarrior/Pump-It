@@ -1,32 +1,42 @@
 package com.pumpit.app.ui.view.activity.home;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.google.android.material.navigation.NavigationView;
 import com.pumpit.app.R;
+import com.pumpit.app.data.local.PumpItDatabase;
+import com.pumpit.app.data.remote.PumpItApi;
+import com.pumpit.app.data.remote.interceptor.InternetConnectionInterceptor;
+import com.pumpit.app.data.repository.UserRepository;
+import com.pumpit.app.databinding.ActivityHomeBinding;
+import com.pumpit.app.ui.factory.HomeViewModelFactory;
+import com.pumpit.app.ui.listener.registration.HomeListener;
 import com.pumpit.app.ui.view.activity.listing.ClientsActivity;
 import com.pumpit.app.ui.view.activity.listing.ExercisesActivity;
 import com.pumpit.app.ui.view.activity.listing.TrainingsActivity;
-import com.pumpit.app.ui.view.activity.registration.LoginActivity;
+import com.pumpit.app.ui.viewmodel.home.HomeViewModel;
 
 import java.util.Objects;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, HomeListener {
 
     private DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -44,9 +54,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        if (savedInstanceState == null) {
+        final InternetConnectionInterceptor interceptor = new InternetConnectionInterceptor(this);
+        final PumpItApi api = PumpItApi.invoke(interceptor);
+        final PumpItDatabase db = PumpItDatabase.getInstance(this);
+        final UserRepository repository = new UserRepository(api, db);
+        final HomeViewModelFactory factory = new HomeViewModelFactory(repository);
 
-        }
+        final ActivityHomeBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
+        final HomeViewModel viewModel = new ViewModelProvider(this, factory).get(HomeViewModel.class);
+
+        binding.setViewmodel(viewModel);
+        viewModel.setListener(this);
+
     }
     @Override
     public void onBackPressed() {
