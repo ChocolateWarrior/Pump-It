@@ -37,6 +37,7 @@ public class FirstStepRegistrationViewModel extends ViewModel {
     private static final String EMAIL_NOT_VALID = "E-mail address is not valid!";
     private static final String PASSWORD_REQUIRED_MESSAGE = "Password is required!";
     private static final String DATE_OF_BIRTH_REQUIRED_MESSAGE = "Date of Birth is required!";
+    private static final String COMPANY_REQUIRED_MESSAGE = "Company is required!";
 
     public static final Sex MALE = Sex.MALE;
     public static final Sex FEMALE = Sex.FEMALE;
@@ -47,6 +48,7 @@ public class FirstStepRegistrationViewModel extends ViewModel {
     private String password;
     private String repeatPassword;
     private String dateOfBirth;
+    private String company;
     private boolean trainerFlag;
     private Sex sex;
     private Calendar calendar = Calendar.getInstance();
@@ -63,9 +65,9 @@ public class FirstStepRegistrationViewModel extends ViewModel {
         boolean isValid = checkDataValid(view);
         if (isValid) {
             if (trainerFlag) {
+                signUpTrainer();
             } else {
-                System.out.println("HERE");
-                signUpClient(view);
+                signUpClient();
             }
         }
     }
@@ -137,6 +139,10 @@ public class FirstStepRegistrationViewModel extends ViewModel {
             binding.dateOfBirth.setError(DATE_OF_BIRTH_REQUIRED_MESSAGE);
             valid = false;
         }
+        if (trainerFlag && TextUtils.isEmpty(company)) {
+            binding.company.setError(COMPANY_REQUIRED_MESSAGE);
+            valid = false;
+        }
         return valid;
     }
 
@@ -147,6 +153,7 @@ public class FirstStepRegistrationViewModel extends ViewModel {
         binding.password.setError(null);
         binding.repeatPassword.setError(null);
         binding.dateOfBirth.setError(null);
+        binding.company.setError(null);
     }
 
     private boolean isEmail(final String text) {
@@ -161,7 +168,7 @@ public class FirstStepRegistrationViewModel extends ViewModel {
         secondStepRegistrationIntent.putExtra("dateOfBirth", dateOfBirth);
     }
 
-    private void signUpClient(final View view) {
+    private void signUpClient() {
         LiveData<BasicResponse<LoginResponse>> loginResponse = userRepository.signUpClient(email,
                 firstName,
                 lastName,
@@ -173,6 +180,26 @@ public class FirstStepRegistrationViewModel extends ViewModel {
             if (s.isSuccessful()) {
                 populateUser(s.getResponse().getUser());
                 s.getResponse().getUser().setAuthorities(Collections.singleton(Authority.CLIENT));
+                userRepository.saveUser(s.getResponse().getUser());
+            } else {
+                listener.onFailure(s.getMessage());
+            }
+        });
+    }
+
+    private void signUpTrainer() {
+        LiveData<BasicResponse<LoginResponse>> loginResponse = userRepository.signUpTrainer(email,
+                firstName,
+                lastName,
+                dateOfBirth,
+                password,
+                sex,
+                company);
+
+        loginResponse.observeForever(s -> {
+            if (s.isSuccessful()) {
+                populateUser(s.getResponse().getUser());
+                s.getResponse().getUser().setAuthorities(Collections.singleton(Authority.TRAINER));
                 userRepository.saveUser(s.getResponse().getUser());
             } else {
                 listener.onFailure(s.getMessage());
@@ -258,5 +285,13 @@ public class FirstStepRegistrationViewModel extends ViewModel {
 
     public void setBinding(ActivityFirstStepRegistrationBinding binding) {
         this.binding = binding;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 }

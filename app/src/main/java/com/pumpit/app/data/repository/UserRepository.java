@@ -41,7 +41,7 @@ public class UserRepository {
                                                                final Sex sex) {
         MutableLiveData<BasicResponse<LoginResponse>> loginResponse = new MutableLiveData<>();
 
-        JsonObject request = setupSignUpClientRequest(username,
+        JsonObject request = setupSignUpRequest(username,
                 firstName,
                 lastName,
                 dateOfBirth,
@@ -49,6 +49,31 @@ public class UserRepository {
                 sex);
 
         pumpItApi.signUpClient(request)
+                .enqueue(new GenericCallback<>(loginResponse));
+
+        return loginResponse;
+    }
+
+    public LiveData<BasicResponse<LoginResponse>> signUpTrainer(final String username,
+                                                               final String firstName,
+                                                               final String lastName,
+                                                               final String dateOfBirth,
+                                                               final String password,
+                                                               final Sex sex,
+                                                               final String company) {
+
+        MutableLiveData<BasicResponse<LoginResponse>> loginResponse = new MutableLiveData<>();
+
+        JsonObject request = setupSignUpRequest(username,
+                firstName,
+                lastName,
+                dateOfBirth,
+                password,
+                sex);
+
+        setupSignUpTrainerRequest(request, company);
+
+        pumpItApi.signUpTrainer(request)
                 .enqueue(new GenericCallback<>(loginResponse));
 
         return loginResponse;
@@ -69,7 +94,7 @@ public class UserRepository {
         return credentials;
     }
 
-    private JsonObject setupSignUpClientRequest(final String username,
+    private JsonObject setupSignUpRequest(final String username,
                                                 final String firstName,
                                                 final String lastName,
                                                 final String dateOfBirth,
@@ -83,5 +108,9 @@ public class UserRepository {
         request.addProperty("password", password);
         request.addProperty("sex", sex.toString());
         return request;
+    }
+
+    private void setupSignUpTrainerRequest(final JsonObject request, final String company) {
+        request.addProperty("password", company);
     }
 }
