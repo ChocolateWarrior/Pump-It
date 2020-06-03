@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.RadioGroup;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -20,19 +19,14 @@ import com.pumpit.app.data.remote.response.LoginResponse;
 import com.pumpit.app.data.repository.UserRepository;
 import com.pumpit.app.databinding.ActivityFirstStepRegistrationBinding;
 import com.pumpit.app.ui.listener.registration.FirstStepRegistrationListener;
-import com.pumpit.app.ui.view.activity.registration.ClientSecondStepRegistrationActivity;
-import com.pumpit.app.ui.view.activity.registration.TrainerSecondStepRegistrationActivity;
 
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Locale;
-import java.util.Set;
 
 public class FirstStepRegistrationViewModel extends ViewModel {
     private static final String FIRST_NAME_REQUIRED_MESSAGE = "First name is required!";
@@ -66,10 +60,6 @@ public class FirstStepRegistrationViewModel extends ViewModel {
         boolean isValid = checkDataValid(view);
         if (isValid) {
             if (trainerFlag) {
-                Intent trainerSecondStepRegistration = new Intent(view.getContext(),
-                        TrainerSecondStepRegistrationActivity.class);
-                fillSecondStepIntentExtras(trainerSecondStepRegistration);
-                view.getContext().startActivity(trainerSecondStepRegistration);
             } else {
                 signUpClient(view);
             }
@@ -99,6 +89,11 @@ public class FirstStepRegistrationViewModel extends ViewModel {
 
     public void onTrainerFlagChanged(final CompoundButton button, final boolean checked) {
         trainerFlag = checked;
+        if (checked) {
+            listener.trainerSwitchChecked();
+        } else {
+            listener.trainerSwitchUnchecked();
+        }
     }
 
     public void setSex(final Sex sex) {

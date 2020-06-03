@@ -2,9 +2,12 @@ package com.pumpit.app.ui.view.activity.registration;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -50,6 +53,26 @@ public class FirstStepRegistrationActivity extends AppCompatActivity implements 
     @Override
     public void updateDateOfBirthLabel(final String text) {
         ((EditText)findViewById(R.id.dateOfBirth)).setText(text);
+    }
+
+    @Override
+    public void trainerSwitchChecked() {
+        findViewById(R.id.company).setVisibility(View.VISIBLE);
+        ConstraintLayout constraintLayout = findViewById(R.id.firstStepRegistrationActivity);
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(constraintLayout);
+        constraintSet.connect(R.id.sex, ConstraintSet.TOP, R.id.company, ConstraintSet.BOTTOM, 24);
+        constraintSet.applyTo(constraintLayout);
+    }
+
+    @Override
+    public void trainerSwitchUnchecked() {
+        findViewById(R.id.company).setVisibility(View.INVISIBLE);
+        ConstraintLayout constraintLayout = findViewById(R.id.firstStepRegistrationActivity);
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(constraintLayout);
+        constraintSet.connect(R.id.sex, ConstraintSet.TOP, R.id.trainerFlag, ConstraintSet.BOTTOM, 24);
+        constraintSet.applyTo(constraintLayout);
     }
 
     @Override
