@@ -7,8 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.view.activity.MainActivity"
-    >
+    tools:context=".ui.view.activity.MainActivity">
     <!--        tools:openDrawer="start"-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -247,7 +246,7 @@
                     android:padding="20dp"
                     android:scaleType="fitCenter"
                     android:tint="@color/appYellow"
-                    app:srcCompat="@drawable/ic_calendar2" />
+                    app:srcCompat="@drawable/ic_calendar" />
 
             </LinearLayout>
 
