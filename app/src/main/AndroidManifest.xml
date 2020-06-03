@@ -27,8 +27,6 @@
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.view.activity.home.HomeActivity" />
-        <activity android:name=".ui.view.activity.registration.ClientSecondStepRegistrationActivity" />
-        <activity android:name=".ui.view.activity.registration.TrainerSecondStepRegistrationActivity" />
         <activity android:name=".ui.view.activity.registration.FirstStepRegistrationActivity" />
         <activity android:name=".ui.view.activity.registration.LoginActivity" />
         <activity android:name=".ui.view.activity.MainActivity">

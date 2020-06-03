@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.RadioGroup;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -20,18 +19,15 @@ import com.pumpit.app.data.remote.response.LoginResponse;
 import com.pumpit.app.data.repository.UserRepository;
 import com.pumpit.app.databinding.ActivityFirstStepRegistrationBinding;
 import com.pumpit.app.ui.listener.registration.FirstStepRegistrationListener;
-import com.pumpit.app.ui.view.activity.registration.ClientSecondStepRegistrationActivity;
-import com.pumpit.app.ui.view.activity.registration.TrainerSecondStepRegistrationActivity;
 
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Set;
 
 public class FirstStepRegistrationViewModel extends ViewModel {
@@ -56,6 +52,7 @@ public class FirstStepRegistrationViewModel extends ViewModel {
     private Calendar calendar = Calendar.getInstance();
     private FirstStepRegistrationListener listener;
     private UserRepository userRepository;
+    private ActivityFirstStepRegistrationBinding binding;
 
     public FirstStepRegistrationViewModel(final UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -66,11 +63,8 @@ public class FirstStepRegistrationViewModel extends ViewModel {
         boolean isValid = checkDataValid(view);
         if (isValid) {
             if (trainerFlag) {
-                Intent trainerSecondStepRegistration = new Intent(view.getContext(),
-                        TrainerSecondStepRegistrationActivity.class);
-                fillSecondStepIntentExtras(trainerSecondStepRegistration);
-                view.getContext().startActivity(trainerSecondStepRegistration);
             } else {
+                System.out.println("HERE");
                 signUpClient(view);
             }
         }
@@ -99,6 +93,11 @@ public class FirstStepRegistrationViewModel extends ViewModel {
 
     public void onTrainerFlagChanged(final CompoundButton button, final boolean checked) {
         trainerFlag = checked;
+        if (checked) {
+            listener.trainerSwitchChecked();
+        } else {
+            listener.trainerSwitchUnchecked();
+        }
     }
 
     public void setSex(final Sex sex) {
@@ -114,7 +113,6 @@ public class FirstStepRegistrationViewModel extends ViewModel {
 
     private boolean checkDataValid(final View view) {
         boolean valid = true;
-        ActivityFirstStepRegistrationBinding binding = ActivityFirstStepRegistrationBinding.bind(view);
         if (TextUtils.isEmpty(firstName)) {
             binding.firstName.setError(FIRST_NAME_REQUIRED_MESSAGE);
             valid = false;
@@ -131,7 +129,7 @@ public class FirstStepRegistrationViewModel extends ViewModel {
             binding.password.setError(PASSWORD_REQUIRED_MESSAGE);
             valid = false;
         }
-        if (!isEmail(email)) {
+        if (Objects.isNull(email) || !isEmail(email)) {
             binding.email.setError(EMAIL_NOT_VALID);
             valid = false;
         }
@@ -143,8 +141,6 @@ public class FirstStepRegistrationViewModel extends ViewModel {
     }
 
     private void clearErrorMessages(final View view) {
-        ActivityFirstStepRegistrationBinding binding = ActivityFirstStepRegistrationBinding.bind(view);
-
         binding.firstName.setError(null);
         binding.lastName.setError(null);
         binding.email.setError(null);
@@ -254,5 +250,13 @@ public class FirstStepRegistrationViewModel extends ViewModel {
 
     public void setListener(FirstStepRegistrationListener listener) {
         this.listener = listener;
+    }
+
+    public ActivityFirstStepRegistrationBinding getBinding() {
+        return binding;
+    }
+
+    public void setBinding(ActivityFirstStepRegistrationBinding binding) {
+        this.binding = binding;
     }
 }

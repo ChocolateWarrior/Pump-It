@@ -4,4 +4,6 @@ public interface FirstStepRegistrationListener {
     void passwordDoNotMatch();
     void updateDateOfBirthLabel(final String text);
     void onFailure(final String message);
+    void trainerSwitchChecked();
+    void trainerSwitchUnchecked();
 }
