@@ -1,6 +1,7 @@
 package com.pumpit.app.ui.viewmodel.home;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.pumpit.app.data.local.entity.Authority;
@@ -18,13 +19,14 @@ public class HomeViewModel extends ViewModel {
     private static final String HEIGHT_AND_WEIGHT_TITLE = "Height ࿕ Weight";
     private static final String TRAINEES_TITLE = "Trainees";
 
-    private String name;
-    private String description;
-    private String optionalInfo;
-    private String sideNumber;
-    private String sideTitle;
-    private String sideMenuName;
-    private String sideMenuStatus;
+    private MutableLiveData<String> name = new MutableLiveData<>();
+    private MutableLiveData<String> description = new MutableLiveData<>();
+    private MutableLiveData<String> optionalInfo = new MutableLiveData<>();
+    private MutableLiveData<String> sideNumber = new MutableLiveData<>();
+    private MutableLiveData<String> sideTitle = new MutableLiveData<>();
+    private MutableLiveData<String> sideMenuName = new MutableLiveData<>();
+    private MutableLiveData<String> sideMenuStatus = new MutableLiveData<>();
+    private MutableLiveData<String> profilePicturePath = new MutableLiveData<>();
     private UserRepository userRepository;
     private LiveData<User> user;
     private HomeListener listener;
@@ -44,10 +46,16 @@ public class HomeViewModel extends ViewModel {
                 .stream()
                 .findFirst();
 
-        name = user.getFirstName() + " " + user.getLastName();
-        sideMenuStatus = description = authority
+        name.setValue(user.getFirstName() + " " + user.getLastName());
+        description.setValue(authority
                 .map(Authority::toString)
-                .orElse(DEFAULT_DESCRIPTION);
+                .orElse(DEFAULT_DESCRIPTION));
+
+        sideMenuStatus.setValue(authority
+                .map(Authority::toString)
+                .orElse(DEFAULT_DESCRIPTION));
+
+        profilePicturePath.setValue(user.getProfilePicturePath());
 
         authority.ifPresent(this::populateAdditionalUserData);
     }
@@ -61,80 +69,79 @@ public class HomeViewModel extends ViewModel {
     }
 
     private void populateClientData(final Client client) {
-        optionalInfo = TRAINER_PREFIX + client.getTrainerFirstName() + " " + client.getTrainerLastName();
-        sideTitle = HEIGHT_AND_WEIGHT_TITLE;
-        sideNumber = client.getHeight() + "࿕" + client.getWeight();
-
-
-
-        System.out.println(name);
-        System.out.println(sideMenuStatus);
-        System.out.println(description);
-        System.out.println(optionalInfo);
-        System.out.println(sideTitle);
-        System.out.println(sideNumber);
+        optionalInfo.setValue(TRAINER_PREFIX + client.getTrainerFirstName() + " " + client.getTrainerLastName());
+        sideTitle.setValue(HEIGHT_AND_WEIGHT_TITLE);
+        sideNumber.setValue(client.getHeight() + "࿕" + client.getWeight());
     }
 
     private void populateTrainerData(final Trainer trainer) {
-        optionalInfo = trainer.getCompany();
-        sideTitle = TRAINEES_TITLE;
-        sideNumber = String.valueOf(trainer.getClientCount());
+        optionalInfo.setValue(trainer.getCompany());
+        sideTitle.setValue(TRAINEES_TITLE);
+        sideNumber.setValue(String.valueOf(trainer.getClientCount()));
     }
 
-    public String getName() {
+    public MutableLiveData<String> getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(MutableLiveData<String> name) {
         this.name = name;
     }
 
-    public String getDescription() {
+    public MutableLiveData<String> getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(MutableLiveData<String> description) {
         this.description = description;
     }
 
-    public String getOptionalInfo() {
+    public MutableLiveData<String> getOptionalInfo() {
         return optionalInfo;
     }
 
-    public void setOptionalInfo(String optionalInfo) {
+    public void setOptionalInfo(MutableLiveData<String> optionalInfo) {
         this.optionalInfo = optionalInfo;
     }
 
-    public String getSideNumber() {
+    public MutableLiveData<String> getSideNumber() {
         return sideNumber;
     }
 
-    public void setSideNumber(String sideNumber) {
+    public void setSideNumber(MutableLiveData<String> sideNumber) {
         this.sideNumber = sideNumber;
     }
 
-    public String getSideTitle() {
+    public MutableLiveData<String> getSideTitle() {
         return sideTitle;
     }
 
-    public void setSideTitle(String sideTitle) {
+    public void setSideTitle(MutableLiveData<String> sideTitle) {
         this.sideTitle = sideTitle;
     }
 
-    public String getSideMenuName() {
+    public MutableLiveData<String> getSideMenuName() {
         return sideMenuName;
     }
 
-    public void setSideMenuName(String sideMenuName) {
+    public void setSideMenuName(MutableLiveData<String> sideMenuName) {
         this.sideMenuName = sideMenuName;
     }
 
-    public String getSideMenuStatus() {
+    public MutableLiveData<String> getSideMenuStatus() {
         return sideMenuStatus;
     }
 
-    public void setSideMenuStatus(String sideMenuStatus) {
+    public void setSideMenuStatus(MutableLiveData<String> sideMenuStatus) {
         this.sideMenuStatus = sideMenuStatus;
+    }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public LiveData<User> getUser() {
@@ -151,5 +158,13 @@ public class HomeViewModel extends ViewModel {
 
     public void setListener(HomeListener listener) {
         this.listener = listener;
+    }
+
+    public MutableLiveData<String> getProfilePicturePath() {
+        return profilePicturePath;
+    }
+
+    public void setProfilePicturePath(MutableLiveData<String> profilePicturePath) {
+        this.profilePicturePath = profilePicturePath;
     }
 }

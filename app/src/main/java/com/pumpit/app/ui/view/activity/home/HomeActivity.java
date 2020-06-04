@@ -20,24 +20,44 @@ import com.pumpit.app.data.local.PumpItDatabase;
 import com.pumpit.app.data.remote.PumpItApi;
 import com.pumpit.app.data.remote.interceptor.InternetConnectionInterceptor;
 import com.pumpit.app.data.repository.UserRepository;
-//import com.pumpit.app.databinding.ActivityHomeBinding;
+import com.pumpit.app.databinding.ActivityHomeBinding;
+import com.pumpit.app.databinding.NavHeaderBinding;
 import com.pumpit.app.ui.factory.HomeViewModelFactory;
 import com.pumpit.app.ui.listener.registration.HomeListener;
+import com.pumpit.app.ui.view.activity.listing.ClientListingActivity;
 import com.pumpit.app.ui.view.activity.listing.ExercisesActivity;
 import com.pumpit.app.ui.view.activity.listing.TrainingsActivity;
 import com.pumpit.app.ui.viewmodel.home.HomeViewModel;
-import com.pumpit.app.ui.view.activity.listing.ClientListingActivity;
 
 import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, HomeListener {
 
     private DrawerLayout drawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_home);
+        final InternetConnectionInterceptor interceptor = new InternetConnectionInterceptor(this);
+        final PumpItApi api = PumpItApi.invoke(interceptor);
+        final PumpItDatabase db = PumpItDatabase.getInstance(this);
+        final UserRepository repository = new UserRepository(api, db);
+        final HomeViewModelFactory factory = new HomeViewModelFactory(repository);
+
+        final ActivityHomeBinding activityHomeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
+        final NavHeaderBinding navHeaderBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.nav_header, activityHomeBinding.navView, false);
+
+        activityHomeBinding.navView.addHeaderView(navHeaderBinding.getRoot());
+
+        final HomeViewModel viewModel = new ViewModelProvider(this, factory).get(HomeViewModel.class);
+
+        activityHomeBinding.setViewmodel(viewModel);
+        activityHomeBinding.setLifecycleOwner(this);
+        navHeaderBinding.setViewmodel(viewModel);
+        navHeaderBinding.setLifecycleOwner(this);
+        viewModel.setListener(this);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -53,20 +73,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-//        final InternetConnectionInterceptor interceptor = new InternetConnectionInterceptor(this);
-//        final PumpItApi api = PumpItApi.invoke(interceptor);
-//        final PumpItDatabase db = PumpItDatabase.getInstance(this);
-//        final UserRepository repository = new UserRepository(api, db);
-//        final HomeViewModelFactory factory = new HomeViewModelFactory(repository);
-
-//        final ActivityHomeBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
-//        final HomeViewModel viewModel = new ViewModelProvider(this, factory).get(HomeViewModel.class);
-//
-//        binding.setViewmodel(viewModel);
-//        viewModel.setListener(this);
-
     }
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
