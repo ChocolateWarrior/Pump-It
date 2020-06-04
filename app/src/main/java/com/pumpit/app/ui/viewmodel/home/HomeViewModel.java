@@ -42,6 +42,10 @@ public class HomeViewModel extends ViewModel {
     }
 
     private void populateCommonUserData(final User user) {
+        if (user == null) {
+            return;
+        }
+
         Optional<Authority> authority = user.getAuthorities()
                 .stream()
                 .findFirst();

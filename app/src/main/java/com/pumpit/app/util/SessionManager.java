@@ -29,6 +29,12 @@ public class SessionManager {
         editor.commit();
     }
 
+    public void clearLoginSession() {
+        editor.remove(KEY_USER_ID);
+        editor.remove(KEY_AUTH_TYPE);
+        editor.commit();
+    }
+
     public HashMap<String, String> getUserDetails() {
 
         HashMap<String, String> user = new HashMap<String, String>();

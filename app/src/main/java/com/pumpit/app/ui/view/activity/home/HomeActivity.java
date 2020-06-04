@@ -24,6 +24,7 @@ import com.pumpit.app.databinding.ActivityHomeBinding;
 import com.pumpit.app.databinding.NavHeaderBinding;
 import com.pumpit.app.ui.factory.HomeViewModelFactory;
 import com.pumpit.app.ui.listener.registration.HomeListener;
+import com.pumpit.app.ui.view.activity.empty.LogoutActivity;
 import com.pumpit.app.ui.view.activity.listing.ClientListingActivity;
 import com.pumpit.app.ui.view.activity.listing.ExercisesActivity;
 import com.pumpit.app.ui.view.activity.listing.TrainingsActivity;
@@ -97,10 +98,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(getApplicationContext(), TrainingsActivity.class));
                 break;
             case R.id.nav_about:
-                Toast.makeText(this, "GOVNO VYLEZLO", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "MARCHEK, ROMCHEK, YURCHEK", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_logout:
-                Toast.makeText(this, "PAKA CHORT", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

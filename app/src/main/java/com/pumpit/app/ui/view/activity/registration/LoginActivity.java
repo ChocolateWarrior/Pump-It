@@ -45,13 +45,6 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         binding.setViewmodel(viewModel);
 
         viewModel.setListener(this);
-
-
-        SessionManager sessionManager = new SessionManager(getApplicationContext());
-        String userId = sessionManager.getUserDetails().get(SessionManager.KEY_USER_ID);
-        if (userId != null) {
-            startHomeActivity();
-        }
     }
 
     private void startHomeActivity() {
