@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.gson.JsonObject;
 import com.pumpit.app.data.local.PumpItDatabase;
 import com.pumpit.app.data.local.entity.Client;
+import com.pumpit.app.data.local.entity.Exercise;
 import com.pumpit.app.data.local.entity.Sex;
 import com.pumpit.app.data.local.entity.Trainer;
 import com.pumpit.app.data.local.entity.User;
@@ -170,5 +171,11 @@ public class UserRepository {
         MutableLiveData<BasicResponse<List<ClientResponse>>> clientsResponse = new MutableLiveData<>();
         pumpItApi.getClientsForTrainer(id).enqueue(new GenericCallback<>(clientsResponse));
         return clientsResponse;
+    }
+
+    public LiveData<BasicResponse<List<Exercise>>> getAllExercises() {
+        MutableLiveData<BasicResponse<List<Exercise>>> exercisesResponse = new MutableLiveData<>();
+        pumpItApi.getAllExercises().enqueue(new GenericCallback<>(exercisesResponse));
+        return exercisesResponse;
     }
 }

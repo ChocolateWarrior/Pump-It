@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonObject;
+import com.pumpit.app.data.local.entity.Exercise;
 import com.pumpit.app.data.remote.interceptor.InternetConnectionInterceptor;
 import com.pumpit.app.data.remote.response.ClientResponse;
 import com.pumpit.app.data.remote.response.LoginResponse;
@@ -58,4 +59,7 @@ public interface PumpItApi {
 
     @GET(value = "trainers/{id}/clients")
     Call<List<ClientResponse>> getClientsForTrainer(@Path("id") long id);
+
+    @GET(value = "exercises")
+    Call<List<Exercise>> getAllExercises();
 }
