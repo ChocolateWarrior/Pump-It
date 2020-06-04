@@ -23,10 +23,10 @@ import com.pumpit.app.data.repository.UserRepository;
 import com.pumpit.app.databinding.ActivityHomeBinding;
 import com.pumpit.app.ui.factory.HomeViewModelFactory;
 import com.pumpit.app.ui.listener.registration.HomeListener;
-import com.pumpit.app.ui.view.activity.listing.ClientsActivity;
 import com.pumpit.app.ui.view.activity.listing.ExercisesActivity;
 import com.pumpit.app.ui.view.activity.listing.TrainingsActivity;
 import com.pumpit.app.ui.viewmodel.home.HomeViewModel;
+import com.pumpit.app.ui.view.activity.listing.ClientListingActivity;
 
 import java.util.Objects;
 
@@ -80,7 +80,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_clients:
-                startActivity(new Intent(getApplicationContext(), ClientsActivity.class));
+                startActivity(new Intent(getApplicationContext(), ClientListingActivity.class));
                 break;
             case R.id.nav_exercises:
                 startActivity(new Intent(getApplicationContext(), ExercisesActivity.class));

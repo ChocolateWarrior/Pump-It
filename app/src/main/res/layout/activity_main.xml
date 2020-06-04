@@ -12,27 +12,40 @@
 
         <Button
             android:id="@+id/test"
-            android:layout_width="152dp"
-            android:layout_height="141dp"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
             android:text="Go BRRRR"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.482"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.633" />
+            app:layout_constraintVertical_bias="0.428" />
 
         <Button
             android:id="@+id/home_btn"
-            android:layout_width="152dp"
-            android:layout_height="141dp"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
             android:text="Go HOME"
-            app:layout_constraintBottom_toTopOf="@+id/test"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.484"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.322" />
+
+        <Button
+            android:id="@+id/clients_btn"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:text="Go FUCK YOURSELF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.484"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.534" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
