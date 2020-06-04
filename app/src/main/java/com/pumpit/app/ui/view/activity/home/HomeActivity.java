@@ -20,7 +20,7 @@ import com.pumpit.app.data.local.PumpItDatabase;
 import com.pumpit.app.data.remote.PumpItApi;
 import com.pumpit.app.data.remote.interceptor.InternetConnectionInterceptor;
 import com.pumpit.app.data.repository.UserRepository;
-import com.pumpit.app.databinding.ActivityHomeBinding;
+//import com.pumpit.app.databinding.ActivityHomeBinding;
 import com.pumpit.app.ui.factory.HomeViewModelFactory;
 import com.pumpit.app.ui.listener.registration.HomeListener;
 import com.pumpit.app.ui.view.activity.listing.ExercisesActivity;
@@ -54,17 +54,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        final InternetConnectionInterceptor interceptor = new InternetConnectionInterceptor(this);
-        final PumpItApi api = PumpItApi.invoke(interceptor);
-        final PumpItDatabase db = PumpItDatabase.getInstance(this);
-        final UserRepository repository = new UserRepository(api, db);
-        final HomeViewModelFactory factory = new HomeViewModelFactory(repository);
+//        final InternetConnectionInterceptor interceptor = new InternetConnectionInterceptor(this);
+//        final PumpItApi api = PumpItApi.invoke(interceptor);
+//        final PumpItDatabase db = PumpItDatabase.getInstance(this);
+//        final UserRepository repository = new UserRepository(api, db);
+//        final HomeViewModelFactory factory = new HomeViewModelFactory(repository);
 
-        final ActivityHomeBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
-        final HomeViewModel viewModel = new ViewModelProvider(this, factory).get(HomeViewModel.class);
-
-        binding.setViewmodel(viewModel);
-        viewModel.setListener(this);
+//        final ActivityHomeBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
+//        final HomeViewModel viewModel = new ViewModelProvider(this, factory).get(HomeViewModel.class);
+//
+//        binding.setViewmodel(viewModel);
+//        viewModel.setListener(this);
 
     }
     @Override
