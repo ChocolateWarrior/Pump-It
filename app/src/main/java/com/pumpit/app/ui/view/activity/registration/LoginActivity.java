@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.pumpit.app.R;
 import com.pumpit.app.data.local.PumpItDatabase;
+import com.pumpit.app.data.local.entity.Authority;
+import com.pumpit.app.data.local.entity.User;
 import com.pumpit.app.data.remote.PumpItApi;
 import com.pumpit.app.data.remote.interceptor.InternetConnectionInterceptor;
 import com.pumpit.app.data.repository.UserRepository;
@@ -17,9 +19,10 @@ import com.pumpit.app.ui.factory.LoginViewModelFactory;
 import com.pumpit.app.ui.listener.registration.LoginListener;
 import com.pumpit.app.ui.view.activity.home.HomeActivity;
 import com.pumpit.app.ui.viewmodel.registration.LoginViewModel;
+import com.pumpit.app.util.SessionManager;
 import com.pumpit.app.util.ViewUtils;
 
-import java.util.Objects;
+import java.util.Optional;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {
 
@@ -43,31 +46,47 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
         viewModel.setListener(this);
 
-        viewModel.getLoggedInUser().observe(this, user -> {
-            if (Objects.nonNull(user)) {
-                Intent intent = new Intent(this, HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String userId = sessionManager.getUserDetails().get(SessionManager.KEY_USER_ID);
+        if (userId != null) {
+            startHomeActivity();
+        }
+    }
+
+    private void startHomeActivity() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
 
     @Override
     public void onStarted() {
-        //TODO Find a way to remove call findViewById method
         ViewUtils.showProgressBar(findViewById(R.id.login_progress_bar));
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(User user) {
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        sessionManager.createLoginSession(String.valueOf(user.getId()), getUserAuthorityName(user));
         ViewUtils.hideProgressBar(findViewById(R.id.login_progress_bar));
+        startHomeActivity();
     }
 
     @Override
     public void onFailure(final String message) {
         ViewUtils.hideProgressBar(findViewById(R.id.login_progress_bar));
         ViewUtils.showToast(this, message);
+    }
+
+    private String getUserAuthorityName(User user) {
+        Optional<Authority> authorityOptional = user.getAuthorities().stream().findFirst();
+        String authority = null;
+        if (authorityOptional.isPresent()) {
+            authority = authorityOptional.get().name();
+        }
+        return authority;
     }
 }

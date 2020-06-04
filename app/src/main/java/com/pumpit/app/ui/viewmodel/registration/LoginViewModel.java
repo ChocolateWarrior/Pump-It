@@ -50,7 +50,7 @@ public class LoginViewModel extends ViewModel {
                             ClientResponse response = clRes.getResponse();
                             Client client = convertResponseToClient(response);
                             userRepository.saveClient(client);
-                            listener.onSuccess();
+                            listener.onSuccess(client);
                         } else {
                             listener.onFailure(clRes.getMessage());
                         }
@@ -61,7 +61,7 @@ public class LoginViewModel extends ViewModel {
                             TrainerResponse response = trRes.getResponse();
                             Trainer trainer = convertResponseToTrainer(response);
                             userRepository.saveTrainer(trainer);
-                            listener.onSuccess();
+                            listener.onSuccess(trainer);
                         } else {
                             listener.onFailure(trRes.getMessage());
                         }
@@ -114,6 +114,14 @@ public class LoginViewModel extends ViewModel {
 
     public LiveData<User> getLoggedInUser() {
         return userRepository.getUser();
+    }
+
+    public LiveData<Client> getLoggedInClient() {
+        return userRepository.getCurrentClient();
+    }
+
+    public LiveData<Trainer> getLoggedInTrainer() {
+        return userRepository.getCurrentTrainer();
     }
 
     public String getUsername() {
