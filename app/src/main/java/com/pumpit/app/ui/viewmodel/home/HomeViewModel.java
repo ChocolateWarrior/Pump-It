@@ -16,7 +16,7 @@ import java.util.Optional;
 public class HomeViewModel extends ViewModel {
     private static final String DEFAULT_DESCRIPTION = "Just a good person";
     private static final String TRAINER_PREFIX = "Trainer: ";
-    private static final String HEIGHT_AND_WEIGHT_TITLE = "Height ࿕ Weight";
+    private static final String HEIGHT_AND_WEIGHT_TITLE = "Height : Weight";
     private static final String TRAINEES_TITLE = "Trainees";
 
     private MutableLiveData<String> name = new MutableLiveData<>();
@@ -71,7 +71,7 @@ public class HomeViewModel extends ViewModel {
     private void populateClientData(final Client client) {
         optionalInfo.setValue(TRAINER_PREFIX + client.getTrainerFirstName() + " " + client.getTrainerLastName());
         sideTitle.setValue(HEIGHT_AND_WEIGHT_TITLE);
-        sideNumber.setValue(client.getHeight() + "࿕" + client.getWeight());
+        sideNumber.setValue(client.getHeight() + ":" + client.getWeight());
     }
 
     private void populateTrainerData(final Trainer trainer) {
