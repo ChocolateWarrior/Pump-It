@@ -10,6 +10,7 @@ import com.pumpit.app.data.remote.response.LoginResponse;
 import com.pumpit.app.data.remote.response.TrainerResponse;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -55,4 +56,6 @@ public interface PumpItApi {
     @GET(value = "trainers/{id}")
     Call<TrainerResponse> getTrainerById(@Path("id") long id);
 
+    @GET(value = "trainers/{id}/clients")
+    Call<List<ClientResponse>> getClientsForTrainer(@Path("id") long id);
 }

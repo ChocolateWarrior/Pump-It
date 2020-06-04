@@ -16,6 +16,8 @@ import com.pumpit.app.data.remote.response.GenericCallback;
 import com.pumpit.app.data.remote.response.LoginResponse;
 import com.pumpit.app.data.remote.response.TrainerResponse;
 
+import java.util.List;
+
 public class UserRepository {
 
     private PumpItApi pumpItApi;
@@ -162,5 +164,11 @@ public class UserRepository {
 
     public void removeTrainer() {
         pumpItDatabase.getTrainerDao().removeCurrentUser();
+    }
+
+    public LiveData<BasicResponse<List<ClientResponse>>> getClientsForTrainer(long id) {
+        MutableLiveData<BasicResponse<List<ClientResponse>>> clientsResponse = new MutableLiveData<>();
+        pumpItApi.getClientsForTrainer(id).enqueue(new GenericCallback<>(clientsResponse));
+        return clientsResponse;
     }
 }
