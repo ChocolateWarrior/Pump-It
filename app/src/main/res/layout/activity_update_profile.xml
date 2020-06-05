@@ -41,7 +41,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/update_image" />
 
-        <ImageView
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/update_image"
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -49,7 +49,11 @@
             android:layout_marginTop="28dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_avatar" />
+            app:srcCompat="@drawable/ic_avatar"
+            app:civ_border_color="@color/barBlack"
+            app:civ_border_width="1dp"
+            app:civ_shadow="true"
+            app:civ_shadow_color="@color/barBlack" />
 
         <EditText
             android:id="@+id/update_height"

@@ -1,6 +1,7 @@
 package com.pumpit.app.ui.view.activity.listing;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -9,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.pumpit.app.R;
 import com.pumpit.app.data.local.PumpItDatabase;
 import com.pumpit.app.data.local.entity.Client;
