@@ -1,15 +1,21 @@
 package com.pumpit.app.ui.viewmodel.home;
 
+import android.content.Intent;
+import android.view.View;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.bumptech.glide.Glide;
 import com.pumpit.app.data.local.entity.Authority;
 import com.pumpit.app.data.local.entity.Client;
 import com.pumpit.app.data.local.entity.Trainer;
 import com.pumpit.app.data.local.entity.User;
+import com.pumpit.app.data.remote.PumpItApi;
 import com.pumpit.app.data.repository.UserRepository;
 import com.pumpit.app.ui.listener.registration.HomeListener;
+import com.pumpit.app.ui.view.activity.update.UpdateProfileActivity;
 
 import java.util.Optional;
 
@@ -61,6 +67,8 @@ public class HomeViewModel extends ViewModel {
 
         profilePicturePath.setValue(user.getProfilePicturePath());
 
+        listener.updatePicture(PumpItApi.URL + user.getProfilePicturePath());
+
         authority.ifPresent(this::populateAdditionalUserData);
     }
 
@@ -82,6 +90,10 @@ public class HomeViewModel extends ViewModel {
         optionalInfo.setValue(trainer.getCompany());
         sideTitle.setValue(TRAINEES_TITLE);
         sideNumber.setValue(String.valueOf(trainer.getClientCount()));
+    }
+
+    public void onUpdateProfileButton(final View view) {
+        view.getContext().startActivity(new Intent(view.getContext(), UpdateProfileActivity.class));
     }
 
     public MutableLiveData<String> getName() {

@@ -51,6 +51,7 @@
                 android:fontFamily="sans-serif-light"
                 android:text="Edit Profile"
                 android:textColor="@color/appYellow"
+                android:onClick="@{viewmodel::onUpdateProfileButton}"
                 app:layout_constraintBottom_toBottomOf="@+id/linlay_bar_bot"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

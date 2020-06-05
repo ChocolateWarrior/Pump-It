@@ -24,6 +24,8 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface PumpItApi {
+    String URL = "http://192.168.0.107:9000";
+
     static PumpItApi invoke(final InternetConnectionInterceptor interceptor) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (jsonElement, type, jsonDeserializationContext) ->
@@ -37,7 +39,7 @@ public interface PumpItApi {
 
         return new Retrofit.Builder()
                 .client(httpClient)
-                .baseUrl("http://10.0.2.2:9000")
+                .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
                 .create(PumpItApi.class);

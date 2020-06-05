@@ -3,6 +3,7 @@ package com.pumpit.app.ui.view.activity.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.navigation.NavigationView;
 import com.pumpit.app.R;
 import com.pumpit.app.data.local.PumpItDatabase;
@@ -108,5 +111,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void updatePicture(String pathToImage) {
+        ImageView imageView1 = (ImageView) findViewById(R.id.img_user_avatar);
+        ImageView imageView2 = (ImageView) findViewById(R.id.img_header_user_avatar);
+
+        Glide.with(this)
+                .load(pathToImage)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imageView1);
+
+        Glide.with(this)
+                .load(pathToImage)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imageView2);
     }
 }
