@@ -35,6 +35,7 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<String> sideMenuName = new MutableLiveData<>();
     private MutableLiveData<String> sideMenuStatus = new MutableLiveData<>();
     private MutableLiveData<String> profilePicturePath = new MutableLiveData<>();
+    private Authority authority;
     private UserRepository userRepository;
     private LiveData<User> user;
     private HomeListener listener;
@@ -71,6 +72,7 @@ public class HomeViewModel extends ViewModel {
 
         listener.updatePicture(PumpItApi.URL + user.getProfilePicturePath());
 
+        this.authority = authority.orElse(null);
         authority.ifPresent(this::populateAdditionalUserData);
     }
 
@@ -100,7 +102,11 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void launchQrCode(final View view) {
-        view.getContext().startActivity(new Intent(view.getContext(), QrScannerActivity.class));
+        if (Authority.CLIENT.equals(authority)) {
+            view.getContext().startActivity(new Intent(view.getContext(), QrScannerActivity.class));
+        } else if (Authority.TRAINER.equals(authority)) {
+            view.getContext().startActivity(new Intent(view.getContext(), QrGeneratorActivity.class));
+        }
     }
 
     public MutableLiveData<String> getName() {
