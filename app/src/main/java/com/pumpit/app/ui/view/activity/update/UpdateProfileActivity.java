@@ -29,7 +29,6 @@ public class UpdateProfileActivity extends AppCompatActivity implements UpdatePr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_profile);
 
         final InternetConnectionInterceptor interceptor = new InternetConnectionInterceptor(this);
         final PumpItApi api = PumpItApi.invoke(interceptor);

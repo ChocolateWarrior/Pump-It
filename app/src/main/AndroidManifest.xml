@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
 
     <application
         android:allowBackup="true"
@@ -14,10 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionAndStatusBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.view.activity.update.UpdateProfileActivity"></activity>
-        <activity android:name=".ui.view.activity.listing.ExercisesActivity"></activity>
+        <activity android:name=".ui.view.activity.qr.QrScannerActivity"></activity>
+        <activity android:name=".ui.view.activity.qr.QrGeneratorActivity" />
+        <activity android:name=".ui.view.activity.update.UpdateProfileActivity" />
+        <activity android:name=".ui.view.activity.listing.ExercisesActivity" />
         <activity android:name=".ui.view.activity.listing.ClientListingActivity" />
-        <activity android:name=".ui.view.activity.empty.LogoutActivity"></activity>
+        <activity android:name=".ui.view.activity.empty.LogoutActivity" />
         <activity
             android:name=".ui.view.activity.listing.TrainingsActivity"
             android:label="@string/title_activity_trainings"
@@ -32,6 +37,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
+
     </application>
 
 </manifest>

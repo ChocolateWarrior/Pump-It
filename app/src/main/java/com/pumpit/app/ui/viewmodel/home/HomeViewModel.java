@@ -15,6 +15,8 @@ import com.pumpit.app.data.local.entity.User;
 import com.pumpit.app.data.remote.PumpItApi;
 import com.pumpit.app.data.repository.UserRepository;
 import com.pumpit.app.ui.listener.registration.HomeListener;
+import com.pumpit.app.ui.view.activity.qr.QrGeneratorActivity;
+import com.pumpit.app.ui.view.activity.qr.QrScannerActivity;
 import com.pumpit.app.ui.view.activity.update.UpdateProfileActivity;
 
 import java.util.Optional;
@@ -95,6 +97,10 @@ public class HomeViewModel extends ViewModel {
 
     public void onUpdateProfileButton(final View view) {
         view.getContext().startActivity(new Intent(view.getContext(), UpdateProfileActivity.class));
+    }
+
+    public void launchQrCode(final View view) {
+        view.getContext().startActivity(new Intent(view.getContext(), QrScannerActivity.class));
     }
 
     public MutableLiveData<String> getName() {
