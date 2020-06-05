@@ -55,7 +55,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.NamesViewH
             super(view);
             nameView = view.findViewById(R.id.view_username);
             descView = view.findViewById(R.id.view_desc);
-            avatarView = view.findViewById(R.id.user_avatar);
+            avatarView = view.findViewById(R.id.listing_user_avatar);
             removeButton = view.findViewById(R.id.remove_button);
         }
 

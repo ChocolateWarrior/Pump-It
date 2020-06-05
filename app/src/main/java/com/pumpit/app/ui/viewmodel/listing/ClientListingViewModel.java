@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 import com.pumpit.app.data.local.entity.Client;
 import com.pumpit.app.data.remote.dto.ClientResponses;
 import com.pumpit.app.data.remote.response.BasicResponse;
-import com.pumpit.app.data.remote.response.ClientResponse;
 import com.pumpit.app.data.repository.UserRepository;
 import com.pumpit.app.ui.listener.listing.ClientListingListener;
 

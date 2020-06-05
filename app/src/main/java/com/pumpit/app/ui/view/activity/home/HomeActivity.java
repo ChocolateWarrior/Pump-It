@@ -3,6 +3,7 @@ package com.pumpit.app.ui.view.activity.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -120,12 +121,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         Glide.with(getApplicationContext())
                 .load(pathToImage)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView1);
 
         Glide.with(getApplicationContext())
                 .load(pathToImage)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView2);
+    }
+
+    @Override
+    public void disableClientListButton() {
+        findViewById(R.id.nav_clients).setVisibility(View.INVISIBLE);
     }
 }

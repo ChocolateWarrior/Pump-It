@@ -24,7 +24,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface PumpItApi {
-    String URL = "http://192.168.0.107:9000";
+    String URL = "http://10.0.2.2:9000";
 
     static PumpItApi invoke(final InternetConnectionInterceptor interceptor) {
         Gson gson = new GsonBuilder()

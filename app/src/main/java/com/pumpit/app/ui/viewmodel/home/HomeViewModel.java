@@ -74,6 +74,7 @@ public class HomeViewModel extends ViewModel {
 
     private void populateAdditionalUserData(final Authority authority) {
         if (Authority.CLIENT.equals(authority)) {
+            listener.disableClientListButton();
             userRepository.getCurrentClient().observeForever(this::populateClientData);
         } else if (Authority.TRAINER.equals(authority)) {
             userRepository.getCurrentTrainer().observeForever(this::populateTrainerData);
