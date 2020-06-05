@@ -10,6 +10,7 @@ import com.pumpit.app.data.remote.interceptor.InternetConnectionInterceptor;
 import com.pumpit.app.data.remote.response.ClientResponse;
 import com.pumpit.app.data.remote.response.LoginResponse;
 import com.pumpit.app.data.remote.response.TrainerResponse;
+import com.pumpit.app.data.remote.response.UpdateResponse;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface PumpItApi {
@@ -65,4 +67,10 @@ public interface PumpItApi {
 
     @GET(value = "exercises")
     Call<List<Exercise>> getAllExercises();
+
+    @PUT(value = "clients/{id}")
+    Call<Void> updateClient(@Path("id") long id, @Body JsonObject data);
+
+    @PUT(value = "trainers/{id}")
+    Call<Void> updateTrainer(@Path("id") long id, @Body JsonObject data);
 }

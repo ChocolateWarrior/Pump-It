@@ -12,14 +12,18 @@ import com.pumpit.app.data.local.entity.Sex;
 import com.pumpit.app.data.local.entity.Trainer;
 import com.pumpit.app.data.local.entity.User;
 import com.pumpit.app.data.remote.PumpItApi;
+import com.pumpit.app.data.remote.response.BasicResponse;
+import com.pumpit.app.data.remote.response.UpdateResponse;
 import com.pumpit.app.data.repository.UserRepository;
 import com.pumpit.app.ui.listener.update.UpdateProfileListener;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class UpdateProfileViewModel extends ViewModel {
     public static final Sex MALE = Sex.MALE;
     public static final Sex FEMALE = Sex.FEMALE;
+    private static final String CHECK_PASSWORD_MESSAGE = "Please, check entered passwords!";
 
     private MutableLiveData<String> firstName = new MutableLiveData<>();
     private MutableLiveData<String> lastName = new MutableLiveData<>();
@@ -30,14 +34,17 @@ public class UpdateProfileViewModel extends ViewModel {
     private MutableLiveData<String> weight = new MutableLiveData<>();
     private MutableLiveData<String> company = new MutableLiveData<>();
     private Sex sex;
-    private LiveData<User> user;
+    private Authority authority;
+    private long id;
+    private LiveData<User> liveUser;
+    private User user;
     private UserRepository userRepository;
     private UpdateProfileListener listener;
 
     public UpdateProfileViewModel(final UserRepository userRepository) {
         this.userRepository = userRepository;
-        user = userRepository.getUser();
-        observeUser(user);
+        liveUser = userRepository.getUser();
+        observeUser(liveUser);
     }
 
     public void setSex(final Sex sex) {
@@ -45,12 +52,15 @@ public class UpdateProfileViewModel extends ViewModel {
     }
 
     public void onCancelButton(final View view) {
-        System.out.println("HERE");
         listener.toggleFinish();
     }
 
     public void onUpdateButton(final View view) {
-
+        if (Authority.CLIENT.equals(authority)) {
+            updateClient();
+        } else if (Authority.TRAINER.equals(authority)) {
+            updateTrainer();
+        }
     }
 
     private void observeUser(final LiveData<User> liveData) {
@@ -58,10 +68,14 @@ public class UpdateProfileViewModel extends ViewModel {
     }
 
     private void populateCommonUserData(final User user) {
+        this.user = user;
         Optional<Authority> authority = user.getAuthorities()
                 .stream()
                 .findFirst();
 
+        this.authority = authority.orElse(null);
+
+        id = user.getId();
         firstName.setValue(user.getFirstName());
         lastName.setValue(user.getLastName());
         sex = user.getSex();
@@ -96,6 +110,71 @@ public class UpdateProfileViewModel extends ViewModel {
 
     private void populateTrainerData(final Trainer trainer) {
         company.setValue(trainer.getCompany());
+    }
+
+    private void updateClient() {
+        userRepository.updateClient(id,
+                firstName.getValue(),
+                lastName.getValue(),
+                height.getValue(),
+                weight.getValue(),
+                sex,
+                oldPassword.getValue(),
+                newPassword.getValue(),
+                newPasswordRepeat.getValue()).observeForever(this::handleClientUpdateResponse);
+    }
+
+    private void updateTrainer() {
+        userRepository.updateTrainer(id,
+                firstName.getValue(),
+                lastName.getValue(),
+                company.getValue(),
+                sex,
+                oldPassword.getValue(),
+                newPassword.getValue(),
+                newPasswordRepeat.getValue()).observeForever(this::handleTrainerUpdateResponse);
+    }
+
+    private void handleClientUpdateResponse(final BasicResponse<Void> response) {
+        if (response.isSuccessful()) {
+            handleSuccessfulUserUpdateResponse();
+            handleSuccessfulClientUpdateResponse();
+            listener.toggleFinish();
+        } else {
+            listener.onFailure(CHECK_PASSWORD_MESSAGE);
+        }
+    }
+
+    private void handleTrainerUpdateResponse(final BasicResponse<Void> response) {
+        if (response.isSuccessful()) {
+            handleSuccessfulUserUpdateResponse();
+            handleSuccessfulTrainerUpdateResponse();
+            listener.toggleFinish();
+        } else {
+            listener.onFailure(CHECK_PASSWORD_MESSAGE);
+        }
+    }
+
+    private void handleSuccessfulUserUpdateResponse() {
+        user.setLastName(lastName.getValue());
+        user.setFirstName(firstName.getValue());
+        user.setSex(sex);
+        userRepository.saveUser(user);
+    }
+
+    private void handleSuccessfulClientUpdateResponse() {
+        userRepository.getCurrentClient().observeForever(client -> {
+            client.setHeight(Integer.parseInt(Objects.requireNonNull(height.getValue())));
+            client.setWeight(Double.parseDouble(Objects.requireNonNull(weight.getValue())));
+            userRepository.saveClient(client);
+        });
+    }
+
+    private void handleSuccessfulTrainerUpdateResponse() {
+        userRepository.getCurrentTrainer().observeForever(trainer -> {
+            trainer.setCompany(company.getValue());
+            userRepository.saveTrainer(trainer);
+        });
     }
 
     public MutableLiveData<String> getFirstName() {

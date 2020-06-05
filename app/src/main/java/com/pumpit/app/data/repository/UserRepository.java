@@ -17,6 +17,7 @@ import com.pumpit.app.data.remote.response.ClientResponse;
 import com.pumpit.app.data.remote.response.GenericCallback;
 import com.pumpit.app.data.remote.response.LoginResponse;
 import com.pumpit.app.data.remote.response.TrainerResponse;
+import com.pumpit.app.data.remote.response.UpdateResponse;
 
 import java.util.List;
 
@@ -111,6 +112,75 @@ public class UserRepository {
 
     public LiveData<User> getUser() {
         return pumpItDatabase.getUserDao().getCurrentUser();
+    }
+
+    public LiveData<BasicResponse<Void>> updateClient(final long id,
+                                                        final String firstName,
+                                                        final String lastName,
+                                                        final String height,
+                                                        final String weight,
+                                                        final Sex sex,
+                                                        final String oldPassword,
+                                                        final String newPassword,
+                                                        final String newPasswordRepeat) {
+
+        final MutableLiveData<BasicResponse<Void>> updateResponse = new MutableLiveData<>();
+
+        final JsonObject request = prepareUpdateRequest(firstName, lastName, sex, oldPassword, newPassword, newPasswordRepeat);
+        prepareClientUpdateRequest(height, weight, request);
+
+        pumpItApi.updateClient(id, request)
+                .enqueue(new GenericCallback<>(updateResponse));
+
+        return updateResponse;
+    }
+
+    public LiveData<BasicResponse<Void>> updateTrainer(final long id,
+                                                        final String firstName,
+                                                        final String lastName,
+                                                        final String company,
+                                                        final Sex sex,
+                                                        final String oldPassword,
+                                                        final String newPassword,
+                                                        final String newPasswordRepeat) {
+
+        final MutableLiveData<BasicResponse<Void>> updateResponse = new MutableLiveData<>();
+
+        final JsonObject request = prepareUpdateRequest(firstName, lastName, sex, oldPassword, newPassword, newPasswordRepeat);
+        prepareTrainerUpdateRequest(company, request);
+
+        pumpItApi.updateTrainer(id, request)
+                .enqueue(new GenericCallback<>(updateResponse));
+
+        return updateResponse;
+    }
+
+    private JsonObject prepareUpdateRequest(final String firstName,
+                                            final String lastName,
+                                            final Sex sex,
+                                            final String oldPassword,
+                                            final String newPassword,
+                                            final String newPasswordRepeat) {
+        JsonObject request = new JsonObject();
+        request.addProperty("firstName", firstName);
+        request.addProperty("lastName", lastName);
+        request.addProperty("sex", sex.toString());
+        request.addProperty("oldPassword", oldPassword);
+        request.addProperty("newPassword", newPassword);
+        request.addProperty("newPasswordRepeat", newPasswordRepeat);
+        return request;
+    }
+
+    private void prepareClientUpdateRequest(final String height,
+                                           final String weight,
+                                           final JsonObject request) {
+        request.addProperty("height", height);
+        request.addProperty("weight", weight);
+    }
+
+    private void prepareTrainerUpdateRequest(final String company,
+                                            final JsonObject request) {
+        request.addProperty("company", company);
     }
 
     private JsonObject setupCredentials(String username, String password) {

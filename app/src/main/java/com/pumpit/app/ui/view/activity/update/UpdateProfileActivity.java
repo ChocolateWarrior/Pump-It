@@ -22,6 +22,7 @@ import com.pumpit.app.ui.factory.UpdateProfileViewModelFactory;
 import com.pumpit.app.ui.listener.update.UpdateProfileListener;
 import com.pumpit.app.ui.viewmodel.registration.LoginViewModel;
 import com.pumpit.app.ui.viewmodel.update.UpdateProfileViewModel;
+import com.pumpit.app.util.ViewUtils;
 
 public class UpdateProfileActivity extends AppCompatActivity implements UpdateProfileListener {
 
@@ -71,5 +72,10 @@ public class UpdateProfileActivity extends AppCompatActivity implements UpdatePr
     public void checkFemaleSex() {
         ((RadioButton)findViewById(R.id.update_sex_male)).setChecked(Boolean.FALSE);
         ((RadioButton)findViewById(R.id.update_female_sex)).setChecked(Boolean.TRUE);
+    }
+
+    @Override
+    public void onFailure(String message) {
+        ViewUtils.showToast(this, message);
     }
 }

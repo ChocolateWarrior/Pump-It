@@ -22,7 +22,7 @@ public class GenericCallback<T> implements Callback<T> {
             result.setResponse(response.body());
         } else {
             result.setSuccessful(Boolean.FALSE);
-            result.setMessage("Error code: " + response.code());
+            result.setMessage(response.message());
         }
 
         this.result.setValue(result);
@@ -30,6 +30,8 @@ public class GenericCallback<T> implements Callback<T> {
 
     @Override
     public void onFailure(Call<T> call, Throwable t) {
+        System.out.println("FAIL: " + t.getMessage());
+        t.printStackTrace();
         BasicResponse<T> result = new BasicResponse<>();
         result.setSuccessful(Boolean.FALSE);
         result.setMessage(t.getMessage());

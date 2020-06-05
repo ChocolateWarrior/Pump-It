@@ -6,4 +6,5 @@ public interface UpdateProfileListener {
     void disableTrainerAttributes();
     void checkMaleSex();
     void checkFemaleSex();
+    void onFailure(String message);
 }
