@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewmodel"
             type="com.pumpit.app.ui.viewmodel.home.HomeViewModel" />
@@ -232,7 +231,7 @@
 
             <TextView
                 android:id="@+id/text_side_num"
-                android:text="@={viewmodel.sideNumber}"
+                android:text="GOVNO"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
@@ -243,7 +242,7 @@
                 android:fontFamily="sans-serif-light"
                 android:textAlignment="center"
                 android:textColor="@color/barBlack"
-                android:textSize="30sp"
+                android:textSize="22sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/img_user_avatar"
@@ -254,15 +253,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_side_num"
-                android:layout_marginEnd="40dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-light"
-                android:text="@={viewmodel.sideTitle}"
+                android:text="IZ ZHOPIssdddd"
                 android:textColor="@color/barBlack"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.895"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_side_num" />
 
 
-            <!--    SIDE-MENU SNIPPET   -->
+<!--                SIDE-MENU SNIPPET   -->
             <LinearLayout
                 android:id="@+id/linlay_sidemenu"
                 android:layout_width="match_parent"
