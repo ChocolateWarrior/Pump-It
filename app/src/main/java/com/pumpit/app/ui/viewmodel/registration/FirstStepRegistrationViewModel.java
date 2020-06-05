@@ -12,7 +12,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.pumpit.app.data.local.entity.Authority;
+import com.pumpit.app.data.local.entity.Client;
 import com.pumpit.app.data.local.entity.Sex;
+import com.pumpit.app.data.local.entity.Trainer;
 import com.pumpit.app.data.local.entity.User;
 import com.pumpit.app.data.remote.response.BasicResponse;
 import com.pumpit.app.data.remote.response.LoginResponse;
@@ -20,7 +22,6 @@ import com.pumpit.app.data.repository.UserRepository;
 import com.pumpit.app.databinding.ActivityFirstStepRegistrationBinding;
 import com.pumpit.app.ui.listener.registration.FirstStepRegistrationListener;
 
-import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -28,7 +29,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Set;
 
 public class FirstStepRegistrationViewModel extends ViewModel {
     private static final String FIRST_NAME_REQUIRED_MESSAGE = "First name is required!";
@@ -178,9 +178,19 @@ public class FirstStepRegistrationViewModel extends ViewModel {
 
         loginResponse.observeForever(s -> {
             if (s.isSuccessful()) {
-                populateUser(s.getResponse().getUser());
-                s.getResponse().getUser().setAuthorities(Collections.singleton(Authority.CLIENT));
-                userRepository.saveUser(s.getResponse().getUser());
+                User user = s.getResponse().getUser();
+                populateUser(user);
+                user.setAuthorities(Collections.singleton(Authority.CLIENT));
+                userRepository.saveUser(user);
+                Client client = new Client();
+                client.setFirstName(user.getFirstName());
+                client.setLastName(user.getLastName());
+                client.setUsername(user.getUsername());
+                client.setDateOfBirth(user.getDateOfBirth());
+                client.setSex(user.getSex());
+                client.setAuthorities(Collections.singleton(Authority.CLIENT));
+                client.setProfilePicturePath(user.getProfilePicturePath());
+                userRepository.saveClient(client);
             } else {
                 listener.onFailure(s.getMessage());
             }
@@ -198,9 +208,19 @@ public class FirstStepRegistrationViewModel extends ViewModel {
 
         loginResponse.observeForever(s -> {
             if (s.isSuccessful()) {
-                populateUser(s.getResponse().getUser());
-                s.getResponse().getUser().setAuthorities(Collections.singleton(Authority.TRAINER));
-                userRepository.saveUser(s.getResponse().getUser());
+                User user = s.getResponse().getUser();
+                populateUser(user);
+                user.setAuthorities(Collections.singleton(Authority.TRAINER));
+                userRepository.saveUser(user);
+                Trainer trainer = new Trainer();
+                trainer.setFirstName(user.getFirstName());
+                trainer.setLastName(user.getLastName());
+                trainer.setUsername(user.getUsername());
+                trainer.setDateOfBirth(user.getDateOfBirth());
+                trainer.setSex(user.getSex());
+                trainer.setAuthorities(Collections.singleton(Authority.TRAINER));
+                trainer.setProfilePicturePath(user.getProfilePicturePath());
+                userRepository.saveTrainer(trainer);
             } else {
                 listener.onFailure(s.getMessage());
             }
@@ -213,6 +233,7 @@ public class FirstStepRegistrationViewModel extends ViewModel {
         user.setUsername(email);
         user.setDateOfBirth(LocalDateTime.ofInstant(calendar.toInstant(), ZoneId.systemDefault()).toLocalDate());
         user.setSex(sex);
+        user.setProfilePicturePath("/images/default_avatar.png");
     }
 
     public String getFirstName() {

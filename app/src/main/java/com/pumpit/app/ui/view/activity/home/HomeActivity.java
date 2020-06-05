@@ -118,12 +118,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ImageView imageView1 = (ImageView) findViewById(R.id.img_user_avatar);
         ImageView imageView2 = (ImageView) findViewById(R.id.img_header_user_avatar);
 
-        Glide.with(this)
+        Glide.with(getApplicationContext())
                 .load(pathToImage)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView1);
 
-        Glide.with(this)
+        Glide.with(getApplicationContext())
                 .load(pathToImage)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView2);
