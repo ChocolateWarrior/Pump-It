@@ -233,7 +233,7 @@ public class FirstStepRegistrationViewModel extends ViewModel {
         user.setUsername(email);
         user.setDateOfBirth(LocalDateTime.ofInstant(calendar.toInstant(), ZoneId.systemDefault()).toLocalDate());
         user.setSex(sex);
-        user.setProfilePicturePath("/images/default_avatar.png");
+        user.setProfilePicturePath("/images/ic_avatar3.png");
     }
 
     public String getFirstName() {
