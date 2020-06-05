@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonObject;
 import com.pumpit.app.data.local.entity.Exercise;
+import com.pumpit.app.data.remote.dto.ClientResponses;
 import com.pumpit.app.data.remote.interceptor.InternetConnectionInterceptor;
 import com.pumpit.app.data.remote.response.ClientResponse;
 import com.pumpit.app.data.remote.response.LoginResponse;
@@ -36,7 +37,7 @@ public interface PumpItApi {
 
         return new Retrofit.Builder()
                 .client(httpClient)
-                .baseUrl("http://192.168.0.107:9000")
+                .baseUrl("http://10.0.2.2:9000")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
                 .create(PumpItApi.class);
@@ -58,7 +59,7 @@ public interface PumpItApi {
     Call<TrainerResponse> getTrainerById(@Path("id") long id);
 
     @GET(value = "trainers/{id}/clients")
-    Call<List<ClientResponse>> getClientsForTrainer(@Path("id") long id);
+    Call<ClientResponses> getClientsForTrainer(@Path("id") long id);
 
     @GET(value = "exercises")
     Call<List<Exercise>> getAllExercises();

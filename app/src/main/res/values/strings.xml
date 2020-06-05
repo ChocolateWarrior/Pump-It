@@ -97,4 +97,5 @@
     <string name="title_activity_trainings">ScrollingActivity</string>
     <string name="remove">Remove</string>
     <string name="line_1">Line 1</string>
+    <string name="line_2">Line 2</string>
 </resources>
