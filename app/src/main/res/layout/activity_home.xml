@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.pumpit.app.ui.viewmodel.home.HomeViewModel" />
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.view.activity.home.HomeActivity">
+        <!--        tools:openDrawer="start"-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/lightGrey">
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/img_user_avatar"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="120dp"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="user_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_avatar"
+                app:civ_border_color="@color/barBlack"
+                app:civ_border_width="1dp"
+                app:civ_shadow="true"
+                app:civ_shadow_color="@color/barBlack" />
+            <!--            app:layout_constraintTop_toBottomOf="@+id/linlay_bar_top"-->
+
+            <Button
+                android:id="@+id/btn_edit_profile"
+                android:layout_width="180dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/mybutton"
+                android:fontFamily="sans-serif-light"
+                android:text="Edit Profile"
+                android:textColor="@color/appYellow"
+                android:onClick="@{viewmodel::onUpdateProfileButton}"
+                app:layout_constraintBottom_toBottomOf="@+id/linlay_bar_bot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linlay_info_bar"
+                app:layout_constraintVertical_bias="0.1" />
+
+            <LinearLayout
+                android:id="@+id/linlay_info_bar"
+                android:layout_width="420dp"
+                android:layout_height="110dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_user_avatar"
+                app:layout_constraintVertical_bias="0.0">
+
+                <LinearLayout
+                    android:id="@+id/linlay_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="center"
+                        android:text="@={viewmodel.name}"
+                        android:textColor="@color/barBlack"
+                        android:textSize="28sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linlay_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="center_horizontal"
+                        android:text="@={viewmodel.description}"
+                        android:textColor="@color/barBlack"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linlay_place"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_optional_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="center_horizontal"
+                        android:text="@={viewmodel.optionalInfo}"
+                        android:textColor="@color/barBlack"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linlay_bar_bot"
+                android:layout_width="420dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/barBlack"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/linlay_bot_left"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/btn_home"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:background="@android:color/transparent"
+                        android:padding="20dp"
+                        android:scaleType="fitCenter"
+                        android:tint="@color/appYellow"
+                        app:srcCompat="@drawable/ic_home" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linlay_bot_center"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btn_calendar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:padding="20dp"
+                    android:scaleType="fitCenter"
+                    android:tint="@color/appYellow"
+                    app:srcCompat="@drawable/ic_calendar" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linlay_bot_right"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/btn_social"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:background="@android:color/transparent"
+                        android:padding="20dp"
+                        android:scaleType="fitCenter"
+                        android:tint="@color/appYellow"
+                        app:srcCompat="@drawable/ic_socials" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_add"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="32dp"
+                android:backgroundTint="@color/appYellow"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{viewmodel::launchQrCode}"
+                app:layout_constraintBottom_toTopOf="@+id/linlay_bar_bot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.976"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_edit_profile"
+                app:srcCompat="@android:drawable/ic_menu_add" />
+
+            <TextView
+                android:id="@+id/text_side_num"
+                android:text="@={viewmodel.sideNumber}"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="8dp"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:fontFamily="sans-serif-light"
+                android:textAlignment="center"
+                android:textColor="@color/barBlack"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/img_user_avatar"
+                app:layout_constraintTop_toTopOf="@+id/img_user_avatar" />
+
+            <TextView
+                android:id="@+id/text_side_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_side_num"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-light"
+                android:text="@={viewmodel.sideTitle}"
+                android:textColor="@color/barBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.895"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_side_num" />
+
+
+<!--                SIDE-MENU SNIPPET   -->
+            <LinearLayout
+                android:id="@+id/linlay_sidemenu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="69dp"
+                    android:background="@drawable/ic_actionbar_bg"
+                    android:fitsSystemWindows="true"
+                    android:theme="@style/AppTheme.AppBarOverlay">
+
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:elevation="4dp"
+                        app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+                <FrameLayout
+                    android:id="@+id/menu_options_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/drawer_menu" />
+
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</layout>
+

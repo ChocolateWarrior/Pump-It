@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.pumpit.app.ui.viewmodel.registration.LoginViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loginActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.view.activity.registration.LoginActivity">
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="228dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="textPersonName"
+            android:text="@={viewmodel.username}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="44dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:text="@={viewmodel.password}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/username" />
+
+        <Button
+            android:id="@+id/logIn"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="111dp"
+            android:onClick="@{viewmodel::onLoginButtonClick}"
+            android:text="Log in"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password"
+            android:textColor="@color/lightGrey"
+            android:background="@drawable/mybutton" />
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:onClick="@{viewmodel::onRegisterButtonClick}"
+            android:text="Register"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logIn"
+            android:textColor="@color/lightGrey"
+            android:background="@drawable/mybutton" />
+
+        <ProgressBar
+            android:id="@+id/login_progress_bar"
+            android:layout_width="200dip"
+            android:layout_height="200dip"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:indeterminate="true"
+            android:paddingBottom="450dip"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/username"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
